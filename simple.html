@@ -1,0 +1,61 @@
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+
+<div id="root"></div>
+
+
+<script type="text/babel">
+  class Something extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { words: [] };
+    }
+    handleChange(event){
+      this.render();
+    }
+    componentDidMount(){
+      // const self = this;
+      $.ajax({
+        type: "GET",
+        url: 'http://alexekim.com/japanese/json',
+        dataType: "json",
+        success: data => {
+          let x = Object.values(data);
+          this.state = {words: x}
+          console.log(this.state);
+          console.log(this.state.words);
+          return data;
+          this.render();
+        },
+        error: err => {
+          console.warn("something went wrong");
+          throw (err);
+        }
+      })
+    }
+    render(){
+      console.log("render: this.state.cities");
+      console.log("render2");
+      return (
+        <div>
+          <p onClick={this.handleChange.bind(this)}>List of words</p>
+          <ul>
+              {this.state.words.map(word => {
+                <li>{word}</li>;
+                // $("#root").append("<p>" + word + "</p>");
+                console.log(word);
+              }
+              )}
+          </ul>
+        </div>);
+    }
+  }
+
+  ReactDOM.render(<Something />, document.getElementById("root"));
+</script>
