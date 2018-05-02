@@ -1,0 +1,153 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+ /* ---- grid ---- */
+
+  .grid {
+    /*background: #DDD;*/
+    max-width: 1200px;
+  }
+
+  .grid-item {
+    float: left;
+    width: 200px;
+    /*height: 160px;*/
+    /*background: #3a75c4;*/
+    transition: background 0.3s ease;
+    font-size: 24px;
+    border: 1px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+    /*counter-increment: item;*/
+  }
+
+  .grid-item:hover{
+    background: #bad80a;
+  }
+
+  .grid-item:focus{
+    background: #bad80a;
+  }
+
+  .masLink{
+    font-size: 16px !important;
+    padding: 15px;
+    text-align: center;
+    /*color: #fff;*/
+    margin-bottom: 0 !important;
+  }
+
+  .grid-item--height2 {
+    height: 200px;
+  }
+
+  .grid-item--height3 {
+    height: 240px;
+  }
+</style>
+
+<script type="text/javascript" src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+
+
+
+<div class="grid">
+  <a href="#smokingRestrictions">
+    <div class="grid-item">
+      <p class="masLink">1. Smoking Restrictions</p>
+    </div>
+  </a>
+  <a href="#tobaccoControlProgramFunding">
+    <div class="grid-item">
+      <p class="masLink">2. Tobacco Control Program Funding</p>
+    </div>
+  </a>
+  <a href="#tobaccoTaxes">
+    <div class="grid-item">
+      <p class="masLink">3. Tobacco Taxes</p>
+    </div>
+  </a>
+  <a href="#lawsRestrictingYouthAccess">
+    <div class="grid-item">
+      <p class="masLink">4. Laws Restricting Youth Access to Tobacco Products</p>
+    </div>
+  </a>
+  <a href="#tobaccoProductSamples">
+    <div class="grid-item">
+      <p class="masLink">5. Tobacco Product Samples/Minimum Sales Amounts for Tobacco Products</p>
+    </div>
+  </a>
+  <a href="#salesOfTobaccoProductsFromVendingMachines">
+    <div class="grid-item">
+      <p class="masLink">6. Sales of Tobacco Products from Vending Machines</p>
+    </div>
+  </a>
+  <a href="#licensingRequirements">
+    <div class="grid-item">
+      <p class="masLink">7. Licensing Requirements for Tobacco Products</p>
+    </div>
+  </a>
+  <a href="#smokingProtectionLaws">
+    <div class="grid-item">
+      <p class="masLink">8. Smoking Protection Laws</p>
+    </div>
+  </a>
+  <a href="#advertisingAndPromotion">
+    <div class="grid-item">
+      <p class="masLink">9. Advertising &amp; Promotion</p>
+    </div>
+  </a>
+  <a href="#productDisclosure">
+    <div class="grid-item">
+      <p class="masLink">10. Product Disclosure</p>
+    </div>
+  </a>
+  <a href="#divestment">
+    <div class="grid-item" style="height: 90px;">
+      <p class="masLink">11. Divestment</p>
+    </div>
+  </a>
+  <a href="#liability">
+    <div class="grid-item">
+      <p class="masLink">12. Liability</p>
+    </div>
+  </a>
+  <a href="#jump12">
+    <div class="grid-item">
+      <p class="masLink">13. Use of Tobacco Settlement Dollars</p>
+    </div>
+  </a>
+  <a href="#fireSafetyStandards">
+    <div class="grid-item">
+      <p class="masLink">14. Fire Safety Standards for Cigarettes</p>
+    </div>
+  </a>
+  <a href="#activity">
+    <div class="grid-item">
+      <p class="masLink">15. Activity</p>
+    </div>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $('.grid').isotope({
+    itemSelector: '.grid-item',
+    masonry: {
+      columnWidth: 100,
+      horizontalOrder: true,
+    }
+  });
+
+  $(".grid").focus(function(){
+    $(this).child
+  })
+</script>

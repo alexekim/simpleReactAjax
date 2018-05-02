@@ -1,0 +1,110 @@
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+
+
+<div id="root"></div>
+
+<div class="">
+  <div id="aaa">
+    a
+  </div>
+  <div id="bbb">
+    b
+  </div>
+  <div id="ccc">
+    c
+  </div>
+</div>
+
+
+<script type="text/babel">
+  class Something extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { words: [] };
+      // const that = this;
+      // console.log("that");
+      // console.log(that);
+    }
+    componentDidMount(){
+      console.warn("child did mount");
+      const self = this;
+      $.ajax({
+        type: "GET",
+        url: 'http://alexekim.com/japanese/json',
+        dataType: "json",
+        success: function(data) {
+          var x = Object.values(data);
+          self.state = {words: x}
+          console.log(self.state);
+          console.log(self.state.words);
+
+          return data;
+        },
+        error: function(err) {
+          $("#aaa").html("error");
+          $("#bbb").html("error");
+          $("#ccc").html("error");
+          console.log("something went wrong");
+          console.log(err);
+          return err;
+        }
+      })
+    }
+    render(){
+      console.log("render: this.state.cities");
+      console.log("render2");
+      return (
+        <div>
+          <p>List of words</p>
+          <ul>
+              {this.state.words.map(word =>
+                <li>{word}</li>
+              )}
+          </ul>
+        </div>);
+    }
+  }
+  // {this.state.cities.map(city => city+"garh")}
+
+  // {this.state.cities.map( city =>
+  //   <span>{city}</span>
+  // )}
+
+  ReactDOM.render(<Something />, document.getElementById("root"));
+</script>
+
+<script>
+  // $(document).ready(function() {
+  //   $.ajax({
+  //     type: "GET",
+  //     url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml',
+  //     dataType: "xml",
+  //     success: function(data) {
+  //       console.log("success?");
+  //       console.log(data);
+  //       $(data).find("bbc_item").each(function(i) {
+  //         var title = $(this).find("title").text();
+  //         $("#aaa").append("<p class='bbcTitle'>" + title + "</p>");
+  //       })
+  //       return data;
+  //     },
+  //     error: function(err) {
+  //       $("#aaa").html("error");
+  //       $("#bbb").html("error");
+  //       $("#ccc").html("error")
+  //       console.log("something went wrong");
+  //       console.log(err);
+  //       return err;
+  //     }
+  //   })
+  // })
+</script>

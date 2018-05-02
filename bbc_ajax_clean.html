@@ -1,0 +1,52 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+
+
+<div id="root"></div>
+
+
+<script type="text/babel">
+  class Citylist extends React.Component {
+    constructor(props) {
+      super(props);
+      let i = 0;
+      this.state = {
+        cities: []
+      };
+    }
+    componentDidMount(){
+      $.ajax({
+        type: "GET",
+        url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=IL',
+        dataType: "xml",
+        success: data => {
+          let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+          htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+          // htmlCollectionAllBbc_Item is now an array, not an htmlcolleciton
+          let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
+          this.setState({cities: a});
+          return data;
+        },
+        error: (err) => {
+          console.warn("something went wrong");
+          throw err;
+        }
+      })
+    }
+    render(){
+      return (
+        <div>
+          <ul>
+          {this.state.cities.map( city =>
+            <li>{city}</li>
+          )}
+          </ul>
+        </div>);
+    }
+  }
+
+
+  ReactDOM.render(<Citylist />, document.getElementById("root"));
+</script>

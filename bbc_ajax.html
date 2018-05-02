@@ -1,0 +1,119 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+
+
+<div id="root"></div>
+
+<div class="">
+  <div id="aaa">
+
+  </div>
+  <div id="bbb">
+
+  </div>
+  <div id="ccc">
+
+  </div>
+</div>
+
+
+<script type="text/babel">
+  class Something extends React.Component {
+    constructor(props) {
+      super(props);
+      let i = 0;
+      this.state = {
+        cities: []
+      };
+      // const that = this;
+      // console.log("that");
+      // console.log(that);
+    }
+    componentDidMount(){
+      console.warn("child did mount");
+      // const self = this;
+      $.ajax({
+        type: "GET",
+        url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=IL',
+        dataType: "xml",
+        success: data => {
+          console.log("success?");
+          let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+          console.log(htmlCollectionAllBbc_Item);
+          htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+          // htmlCollectionAllBbc_Item is now an array, not an htmlcolleciton
+          console.log(htmlCollectionAllBbc_Item);
+          let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
+          console.log(arrayOfCitiesAsStrings);
+
+          this.setState({cities: a});
+
+          console.log("this.state:")
+          console.log(this.state);
+          console.log("this.state.cities");
+          console.log(this.state.cities);
+
+        //  $(data).find("bbc_item").each( (i) => {
+            // let title = $(this).find("title").text();
+            // this.setState({titles: title});
+            // $("#aaa").append("<p class='bbcTitle'>" + title + "</p>");
+          // })
+          return data;
+        },
+        error: (err) => {
+          $("#aaa").html("error");
+          $("#bbb").html("error");
+          $("#ccc").html("error");
+          console.log("something went wrong");
+          console.log(err);
+          return err;
+        }
+      })
+    }
+    render(){
+      console.log("render: this.state.cities");
+      console.log(this.state.cities);
+      console.log("render2");
+      return (
+        <div>
+          <ul>
+          {this.state.cities.map( city =>
+            <li>{city}</li>
+          )}
+          </ul>
+        </div>);
+    }
+  }
+
+
+  ReactDOM.render(<Something />, document.getElementById("root"));
+</script>
+
+<script>
+  // $(document).ready(function() {
+  //   $.ajax({
+  //     type: "GET",
+  //     url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml',
+  //     dataType: "xml",
+  //     success: function(data) {
+  //       console.log("success?");
+  //       console.log(data);
+  //       $(data).find("bbc_item").each(function(i) {
+  //         var title = $(this).find("title").text();
+  //         $("#aaa").append("<p class='bbcTitle'>" + title + "</p>");
+  //       })
+  //       return data;
+  //     },
+  //     error: function(err) {
+  //       $("#aaa").html("error");
+  //       $("#bbb").html("error");
+  //       $("#ccc").html("error")
+  //       console.log("something went wrong");
+  //       console.log(err);
+  //       return err;
+  //     }
+  //   })
+  // })
+</script>
