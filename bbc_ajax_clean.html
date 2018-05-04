@@ -26,7 +26,7 @@
           htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
           // htmlCollectionAllBbc_Item is now an array, not an htmlcolleciton
           let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
-          this.setState({cities: a});
+          this.setState({cities: arrayOfCitiesAsStrings});
           return data;
         },
         error: (err) => {
@@ -39,8 +39,8 @@
       return (
         <div>
           <ul>
-          {this.state.cities.map( city =>
-            <li>{city}</li>
+          {this.state.cities.map( (city, i) =>
+            <li key={i}>{city}</li>
           )}
           </ul>
         </div>);

@@ -1,3 +1,9 @@
+<style media="screen">
+  .headerP{
+    cursor: pointer;
+  }
+</style>
+
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -44,14 +50,10 @@
       console.log("render2");
       return (
         <div>
-          <p onClick={this.handleChange.bind(this)}>List of words (click to print this.state.words to console)</p>
+          <p className="headerP" onClick={this.handleChange.bind(this)}>List of words (click to trigger render() )</p>
           <ul>
-              {this.state.words.map(word =>
-                {
-                  <li>{word}</li>;
-                  // $("#root").append("<p>" + word + "</p>");
-                  console.log(word);
-                }
+              {this.state.words.map((word, i) =>
+                  <li key="i">{word}</li>
               )}
           </ul>
         </div>);
