@@ -1,0 +1,189 @@
+<div id="bbc_feed_large">
+  <link rel="stylesheet" href="/css/materialize.css" media="screen" title="no title" charset="utf-8">
+  <style media="screen">
+    #bbc_feed_large {
+      /*display none CHANGES on successful AJAX call*/
+      display: none;
+      margin-top: 30px;
+      /*margin-bottom: 30px;*/
+    }
+
+    .bbc_event {
+      border: 1px solid #3a75c4;
+      padding: 10px;
+      min-height: 100px;
+      max-height: 100px;
+      margin-bottom: 10px;
+      width: 94%;
+      line-height: 23px;
+      /*border-radius: 10px;*/
+    }
+
+    .bbc_event:hover {
+      /*border: 1px solid #bad80a;*/
+    }
+
+    .row .col {
+      width: 100%;
+    }
+
+    #bbcBtnDiv {
+      text-align: center;
+    }
+
+    #bbcBtn {
+      display: none;
+      position: absolute;
+      background: #ed1b2d;
+      font-family: 'lato', sans-serif;
+      font-weight: 700;
+      color: #ffffff;
+      height: 50px;
+      width: 150px;
+      border-radius: 25px;
+      border: none;
+      font-size: 18px;
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /*#bbcBtn:hover{
+      background: #bad80a;
+    }*/
+
+    #moreBBCs {
+      /*display: none;*/
+    }
+
+    .errorAjaxBackupLink {
+      display: none;
+    }
+
+    #news_wrap {
+      margin-top: 100px;
+    }
+
+
+    @media(max-width: 600px) {
+      .bbc_event {
+        width: 100%;
+        font-size: 16px;
+        line-height: 23px;
+      }
+    }
+  </style>
+
+  <h2>Better Breathers Clubs</h2>
+  <p class="errorAjaxBackupLink">
+    <a href="/preview!www.lung.org/support-and-community/better-breathers-club/">Full List</a>
+  </p>
+  <div id="bbc_list">
+    <div class="row rowOne"></div>
+    <div class="row rowTwo"></div>
+    <div id="bbcBtnDiv">
+      <button type="button" name="button" id="bbcBtn">View More</button>
+    </div>
+    <div id="moreBBCs">
+      <div class="row rowThree"></div>
+      <div class="row rowFour"></div>
+      <div class="row rowFive"></div>
+      <div class="row rowSix"></div>
+      <div class="row rowSeven"></div>
+      <div class="row rowEight"></div>
+      <div class="row rowNine"></div>
+      <div class="row rowTen"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var bbc = function() {
+      var stateAbbrev = Cookies.get("state");
+      var count = 0;
+      $.ajax({
+        type: "GET",
+        url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + stateAbbrev,
+        dataType: "xml",
+        success: function(xml) {
+          // console.log(xml);
+          var count = 0;
+          $(xml).find("bbc_item").each(function(i) {
+            var title = $(this).find("title").text();
+            var url = $(this).find("link").text();
+            var city = $(this).find("city").text();
+            var state = $(this).find("state").text();
+
+            // if( $(this).find("event_time_two") ){
+            //   var event_time = $(this).find("event_time_two").text();
+            //   console.log("AAAA");
+            // }
+            // else{
+            //   var event_time = $(this).find("event_time").text();
+            //   console.log("BBBB");
+            // }
+
+            // var event_time = $(this).find("event_time").text();
+            // var event_time_two = $(this).find("event_time_two").text();
+
+            var html = '<a href="' + url + '"><div class="col l4"><div class="bbc_event"><strong>' + title + '</strong><br/>' + city + ', ' + state + '<div></div></a>';
+            // console.log(html);
+            count = count + 1
+            // console.log(count);
+            if (count <= 3) {
+              $("#bbc_list .rowOne").append(html);
+            } else if (count >= 4 && count <= 6) {
+              $("#bbc_list .rowTwo").append(html);
+            } else if (count >= 7 && count <= 9) {
+              $("#bbc_list .rowThree").append(html);
+            } else if (count >= 10 && count <= 12) {
+              $("#bbc_list .rowFour").append(html);
+            } else if (count >= 13 && count <= 15) {
+              $("#bbc_list .rowFive").append(html);
+            } else if (count >= 16 && count <= 18) {
+              $("#bbc_list .rowSix").append(html);
+            } else if (count >= 19 && count <= 21) {
+              $("#bbc_list .rowSeven").append(html);
+            } else if (count >= 22 && count <= 24) {
+              $("#bbc_list .rowEight").append(html);
+            } else if (count >= 25 && count <= 27) {
+              $("#bbc_list .rowNine").append(html);
+            } else if (count >= 28 && count <= 30) {
+              $("#bbc_list .rowTen").append(html);
+            }
+            // featured_events += html;
+          })
+          $("#bbc_feed_large").css("display", "block");
+        },
+        error: function(xml) {
+          // console.log(xml);
+          throw "An error occurred while processing the Better Breathers Club XML file.";
+          $(".errorAjaxBackupLink").css("display", "block");
+        }
+      });
+    };
+    $(document).ready(function() {
+      setTimeout(bbc, 1000);
+    })
+
+    $("#bbcBtn").on("click", function() {
+      $("#bbcBtn").hide();
+      $("#moreBBCs").fadeIn();
+    })
+
+    var refreshBbcFeed = function(){
+      $(".row").children().remove();
+      bbc();
+    }
+
+    $("#stateSelectList").on("change", function() {
+      setTimeout(refreshBbcFeed, 750);
+    })
+
+
+    $("[name='searchZip']").on("submit", function(){
+      // console.log("fire?");
+      setTimeout(refreshBbcFeed, 750);
+      // console.log("settimeout done");
+     })
+  </script>
+</div>

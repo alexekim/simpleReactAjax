@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="/css/materialize.css" media="screen" title="no title" charset="utf-8">
+
 <style media="screen">
   .eachBBCWrapper{
     display: inline-block;
@@ -10,7 +12,9 @@
     min-height: 150px;
   }
   .eachBBC:hover{
-    /*border: 2px solid #3a75c4;*/
+    box-shadow: 3px 3px;
+  }
+  .eachBBC:focus{
     box-shadow: 3px 3px;
   }
 
@@ -31,9 +35,11 @@
     constructor(props){
       super(props);
     }
-    render{
+    render(){
       return (
         <div className="bbcFeed">
+          <h2>Better Breathers Clubs</h2>
+          <BbcGuys />
         </div>
       )
     }
@@ -104,5 +110,5 @@
   }
 
 
-  ReactDOM.render(<BbcGuys />, document.getElementById("root"));
+  ReactDOM.render(<BbcContainer />, document.getElementById("root"));
 </script>
