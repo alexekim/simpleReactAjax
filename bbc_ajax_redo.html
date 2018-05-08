@@ -14,9 +14,12 @@
   .eachBBC:hover{
     box-shadow: 3px 3px;
   }
-  .eachBBC:focus{
+  .eachBBCLink>div:focus{
     box-shadow: 3px 3px;
   }
+
+
+
 
   @media (max-width: 1000px){
     .eachBBCWrapper{ width: 95%; }
@@ -37,7 +40,7 @@
     }
     render(){
       return (
-        <div className="bbcFeed">
+        <div className="bbcContainer">
           <h2>Better Breathers Clubs</h2>
           <BbcGuys />
         </div>
@@ -55,6 +58,11 @@
         cities: [],
         usStates: []
       };
+      this.handleClick = this.handleClick.bind(this);
+      this.componentDidMount = this.componentDidMount.bind(this);
+    }
+    handleClick(){
+      console.log("log");
     }
     componentDidMount(){
       $.ajax({
@@ -63,16 +71,14 @@
         dataType: "xml",
         success: data => {
           console.log(data);
-
           let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
           htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
           // htmlCollectionAllBbc_Item is now an array, not an htmlcollection
-
           let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
           let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(links => links.getElementsByTagName("link")[0].innerHTML);
           let arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(states => states.getElementsByTagName("state")[0].innerHTML);
-          let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(titles => titles.getElementsByTagName("title")[0].innerHTML);
 
+          let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(titles => titles.getElementsByTagName("title")[0].innerHTML);
           let titlesClean = [];
           for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
             var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
@@ -91,13 +97,14 @@
     render(){
       const bothArrays = this.state.titles.map( (title, index, i) =>
          (
-           <div className="eachBBCWrapper" key={index}>
+           <div  id={"bbc"+i} className="eachBBCWrapper" key={index}>
              <a className="eachBBCLink" href={this.state.links[index]}>
-              <div className="eachBBC">
+              <div className="eachBBC" >
                 <p>{title}</p>
                 <p>{this.state.cities[index]}, {this.state.usStates[index]}</p>
               </div>
             </a>
+            <p onClick={this.handleClick}>x</p>
           </div>
         )
       );
