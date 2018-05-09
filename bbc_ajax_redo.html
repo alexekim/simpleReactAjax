@@ -1,23 +1,43 @@
 <link rel="stylesheet" href="/css/materialize.css" media="screen" title="no title" charset="utf-8">
 
 <style media="screen">
+  .bbcContainer{
+    max-width: 1040px;
+    margin: 0 auto;
+    clear: both;
+  }
+
   .eachBBCWrapper{
     display: inline-block;
+    vertical-align: bottom;
+    width: 33%;
   }
+  .eachBBCLink:active{
+    color: #555559 !important;
+  }
+  .eachBBCLink:focus{
+    color: #555559 !important;
+    font-weight: bolder;
+  }
+
   .eachBBC {
     border: 1px solid #3a75c4;
     margin: 10px;
     padding: 10px;
-    width: 260px;
-    min-height: 150px;
+    /*width: 260px;*/
+    min-height: 115px;
   }
   .eachBBC:hover{
     box-shadow: 3px 3px;
   }
-  .eachBBCLink>div:focus{
-    box-shadow: 3px 3px;
+  .eachBBC:active{
+    box-shadow: -3px -3px #3a75c4 !important;
   }
 
+  .bbcText{
+    font-size: 16px !important;
+    line-height: 22px !important;
+  }
 
 
 
@@ -60,32 +80,50 @@
       };
       this.handleClick = this.handleClick.bind(this);
       this.componentDidMount = this.componentDidMount.bind(this);
+      const self = this;
+      $("#stateSelectList").on("change", function() {
+        console.log("page was changed via state select list");
+        // setTimeout(self.componentDidMount, 250);
+        self.componentDidMount();
+      });
+      $("[name='searchZip']").on("submit", function(){
+        // console.log("fire?");
+        console.log("page was changed via zip code");
+        setTimeout(self.componentDidMount, 250);
+        // self.componentDidMount();
+        // console.log("settimeout done");
+      });
     }
     handleClick(){
       console.log("log");
     }
     componentDidMount(){
+      let currentState = Cookies.get("state");
       $.ajax({
         type: "GET",
-        url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=IL',
+        url: 'http://www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=' + currentState,
         dataType: "xml",
         success: data => {
           console.log(data);
-          let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
-          htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
-          // htmlCollectionAllBbc_Item is now an array, not an htmlcollection
-          let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
-          let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(links => links.getElementsByTagName("link")[0].innerHTML);
-          let arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(states => states.getElementsByTagName("state")[0].innerHTML);
-
-          let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(titles => titles.getElementsByTagName("title")[0].innerHTML);
-          let titlesClean = [];
-          for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
-            var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
-            titlesClean.push(redoneTitle);
+          if (data.getElementsByTagName("bbc_item").length <1) {
+            this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: ["#"], cities: [""], usStates: [""]})
           }
+          else{
+            let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+            htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+            // htmlCollectionAllBbc_Item is now an array, not an htmlcollection
+            let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
+            let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(links => links.getElementsByTagName("link")[0].innerHTML);
+            let arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(states => states.getElementsByTagName("state")[0].innerHTML);
 
-          this.setState({titles: titlesClean, links: arrayOfLinksAsStrings, cities: arrayOfCitiesAsStrings, usStates: arrayOfStatesAsStrings});
+            let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(titles => titles.getElementsByTagName("title")[0].innerHTML);
+            let titlesClean = [];
+            for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
+              var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              titlesClean.push(redoneTitle);
+            }
+            this.setState({titles: titlesClean, links: arrayOfLinksAsStrings, cities: arrayOfCitiesAsStrings, usStates: arrayOfStatesAsStrings});
+          }
 
           return data;
         },
@@ -95,20 +133,23 @@
       })
     }
     render(){
-      const bothArrays = this.state.titles.map( (title, index, i) =>
+      const bothArrays = this.state.titles.map( (title, index) =>
          (
-           <div  id={"bbc"+i} className="eachBBCWrapper" key={index}>
+           <div  id={"bbc"+index} className="eachBBCWrapper" key={index}>
              <a className="eachBBCLink" href={this.state.links[index]}>
               <div className="eachBBC" >
-                <p>{title}</p>
-                <p>{this.state.cities[index]}, {this.state.usStates[index]}</p>
+                <p className="bbcText">
+                  <strong>{title}</strong>
+                  <br/>
+                  {this.state.cities[index] + ", " + this.state.usStates[index]}
+                </p>
               </div>
             </a>
           </div>
         )
       );
       return (
-        <div>
+        <div className="bbcContainer">
           {bothArrays}
         </div>
       );
