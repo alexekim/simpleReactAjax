@@ -115,14 +115,31 @@
             let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
             let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(links => links.getElementsByTagName("link")[0].innerHTML);
             let arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(states => states.getElementsByTagName("state")[0].innerHTML);
-
             let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(titles => titles.getElementsByTagName("title")[0].innerHTML);
+
             let titlesClean = [];
             for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
               var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
               titlesClean.push(redoneTitle);
             }
-            this.setState({titles: titlesClean, links: arrayOfLinksAsStrings, cities: arrayOfCitiesAsStrings, usStates: arrayOfStatesAsStrings});
+            let citiesClean = [];
+            for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
+              var redonCity = arrayOCitiessAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              citiesClean.push(redonCity);
+            }
+            let statesClean = [];
+            for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
+              var redoneState = arrayOStatessAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              statesClean.push(redoneState);
+            }
+            let linksClean = [];
+            for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
+              var redoneLinks = arrayOLinkssAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              linksClean.push(redoneLinks);
+            }
+
+
+            this.setState({titles: titlesClean, links: linksClean, cities: citiesClean, usStates: statesClean});
           }
 
           return data;

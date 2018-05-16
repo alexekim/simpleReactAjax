@@ -1,0 +1,153 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  class Accordion extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        titles: [
+          "Lung Cancer Basics",
+          "Lung Cancer Causes and Risk Factors",
+          "Lung Cancer Staging",
+          "Is Lung Cancer on Your Radar?",
+          "How Serious Is Lung Cancer?"
+        ],
+        content: [
+          '<p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancer. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/lung-cancer-basics.html">Learn more about the basics of lung cancer.</a></p>',
+
+          '<p>Anyone can get lung cancer. Lung cancer occurs when cells in the lung mutate or change. Most often, ".barStyle" change in lung cells happens when people breathe in dangerous, toxic substances. Smoking is the greatest risk factor, but there are others like exposure to radon gas and air pollution. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/how-do-i-reduce-my-risk/">Learn how to reduce your risk.</a></p>',
+
+          '<p>Staging&nbsp;<span style="font-family: lato, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;">means finding out if and how much the lung cancer has spread. The&nbsp;tumor stage</span><span style="font-size: 18px;">&nbsp;helps shape a treatment plan.&nbsp;</span><a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/lung-cancer-staging.html" style="font-size: 18px;">Learn more about staging.</a></p>',
+
+          '<p>Take ".barStyle" quiz to find out how much you know about lung cancer. Share it with your friends to help get lung cancer on their radar. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/is-lung-cancer-on-your-radar.html">Take the quiz.</a></p>',
+
+          '<p>Lung cancer is very serious. Much progress has been made, but lung cancer is still the leading cancer killer of both men and women in the U.S. There are a few reasons why. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/how-serious-is-lung-cancer.html">Learn more about the impact of lung cancer.</a></p>'
+         ]
+      }
+    }
+    onKlick(){
+      $(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip');
+    }
+    onKeePress(){
+      if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}
+    }
+    render() {
+      const arrow = <span className="downArrowStyle"><em className="fa fa-chevron-down"></em></span>;
+      const onKlick = "onclick=\"$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')\"";
+      const onKeePress = "onkeypress\"if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}\"";
+
+      const bracket = this.state.titles.map( (title, index) =>
+        <div key={index} id={"accordion" + index} className="packetStyle">
+          <div className={"barStyle barStyle"+index} tabIndex="0">
+            <h2 className="specp">{title}{arrow}</h2>
+          </div>
+          <div className="wordsStyle" dangerouslySetInnerHTML={{__html: this.state.content[index]}}>
+          </div>
+        </div>
+
+     );
+     return (
+       <div className="accordionWrapper">{bracket}</div>
+     )
+    }
+  }
+
+
+  ReactDOM.render(<Accordion />, document.getElementById("root"));
+
+  $(".barStyle0").on("click", function(){
+    $(".barStyle0").next().slideToggle('fast'); $(".barStyle0").toggleClass('selected'); $(".barStyle0").find('span').toggleClass('flip')
+  })
+  $(".barStyle0").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle0").next().slideToggle('fast'); $(".barStyle0").toggleClass('selected'); $(".barStyle0").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle1").on("click", function(){
+    $(".barStyle1").next().slideToggle('fast'); $(".barStyle1").toggleClass('selected'); $(".barStyle1").find('span').toggleClass('flip')
+  })
+  $(".barStyle1").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle1").next().slideToggle('fast'); $(".barStyle1").toggleClass('selected'); $(".barStyle1").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle2").on("click", function(){
+    $(".barStyle2").next().slideToggle('fast'); $(".barStyle2").toggleClass('selected'); $(".barStyle2").find('span').toggleClass('flip')
+  })
+  $(".barStyle2").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle2").next().slideToggle('fast'); $(".barStyle2").toggleClass('selected'); $(".barStyle2").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle3").on("click", function(){
+    $(".barStyle3").next().slideToggle('fast'); $(".barStyle3").toggleClass('selected'); $(".barStyle3").find('span').toggleClass('flip')
+  })
+  $(".barStyle3").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle3").next().slideToggle('fast'); $(".barStyle3").toggleClass('selected'); $(".barStyle3").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle4").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle4").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle5").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle5").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle6").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle6").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle7").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle7").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle8").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle8").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle9").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle9").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle10").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle10").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+  $(".barStyle11").on("click", function(){
+    $(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')
+  })
+  $(".barStyle11").on("keypress", function(){
+    if(event.keyCode == (13 || 32)){$(".barStyle").next().slideToggle('fast'); $(".barStyle").toggleClass('selected'); $(".barStyle").find('span').toggleClass('flip')}
+  })
+
+
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+})
+
+</script>
