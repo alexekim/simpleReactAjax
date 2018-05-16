@@ -62,13 +62,13 @@
       return (
         <div className="bbcContainer">
           <h2>Better Breathers Clubs</h2>
-          <BbcGuys />
+          <BbcComponents />
         </div>
       )
     }
   }
 
-  class BbcGuys extends React.Component {
+  class BbcComponents extends React.Component {
     constructor(props) {
       super(props);
       let i = 0;
@@ -124,17 +124,17 @@
             }
             let citiesClean = [];
             for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
-              var redonCity = arrayOCitiessAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              var redonCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
               citiesClean.push(redonCity);
             }
             let statesClean = [];
             for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
-              var redoneState = arrayOStatessAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
               statesClean.push(redoneState);
             }
             let linksClean = [];
             for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
-              var redoneLinks = arrayOLinkssAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+              var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[","").replace("]]>","");
               linksClean.push(redoneLinks);
             }
 
