@@ -29,16 +29,10 @@
          ]
       }
     }
-    onKlick(){
-      $(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip');
-    }
-    onKeePress(){
-      if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}
-    }
     render() {
       const arrow = <span className="downArrowStyle"><em className="fa fa-chevron-down"></em></span>;
-      const onKlick = "onclick=\"$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')\"";
-      const onKeePress = "onkeypress\"if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}\"";
+      // const onKlick = "onclick=\"$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')\"";
+      // const onKeePress = "onkeypress\"if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}\"";
 
       const bracket = this.state.titles.map( (title, index) =>
         <div key={index} id={"accordion" + index} className="packetStyle">
