@@ -1,63 +1,54 @@
+<style media="screen">
+  .wordsStyle{
+    transition: height 1s ease;
+  }
+</style>
+
 <div class="packetStyle">
-  <div class="barStyle" tabindex="0" onClick="$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')" onKeyPress="if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}">
+  <div class="barStyle" tabindex="0" onclick="if(!this.classList.contains('selected')){this.nextElementSibling.style.height='inherit';this.nextElementSibling.style.display='block';this.classList.add('selected');}else{this.nextElementSibling.style.display='none';this.nextElementSibling.style.height='0';this.classList.remove('selected');}" onkeypress="if(event.keyCode == (13 || 32)){if(!this.classList.contains('selected')){this.nextElementSibling.style.height='inherit';this.nextElementSibling.style.display='block';this.classList.add('selected');}else{this.nextElementSibling.style.display='none';this.nextElementSibling.style.height='0';this.classList.remove('selected');}}">
     <h2 class="specp">Lung Cancer Basics<span class="downArrowStyle"><em class="fa fa-chevron-down"></em></span></h2>
   </div>
   <div class="wordsStyle " style="display: none;">
-    <p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancer. <a href="/preview!www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/lung-cancer-basics.html">Learn more about the basics of lung cancer.</a></p>
+    <p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancer. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/lung-cancer-basics.html">Learn more about the basics of lung cancer.</a></p>
   </div>
 </div>
 
+<br><br>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.3.1/react-transition-group.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
 
 <div id="root"></div>
 
-<style media="screen">
-.example-enter {
-opacity: 0.01;
-}
-
-.example-enter.example-enter-active {
-opacity: 1;
-transition: opacity 500ms ease-in;
-}
-
-.example-leave {
-opacity: 1;
-}
-
-.example-leave.example-leave-active {
-opacity: 0.01;
-transition: opacity 300ms ease-in;
-}
-</style>
-
 <script type="text/babel">
-  var ReactTransitionGroup = require('react-addons-css-transition-group'); // ES5 with npm
 
   class AccReuse extends React.Component {
-    constructor(props) {
+    constructor(props){
       super(props);
       this._handleClick = this._handleClick.bind(this);
       this._handleKeyPress = this._handleKeyPress.bind(this);
     }
     _handleClick(){
+      // function(e){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected')}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected')}}
     }
     _handleKeyPress(){
+      // function(e){if(e.keyCode==(13||32)){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected')}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected')}}}
     }
     render(){
       const arrow = <span className="downArrowStyle"><em className="fa fa-chevron-down"></em></span>;
       return (
         <div className="packetStyle">
-          <div onClick={this._handleClick()} onKeyPress={this._handleKeyPress()} className={"barStyle"} tabIndex="0">
+          <div
+            className={"barStyle"}
+            ref="parent"
+            tabIndex="0"
+            onClick={this._handleClick}
+            onKeyPress={this._handleKeyPress}>
             <h2 className="specp">{this.props.title} {arrow}</h2>
           </div>
-          <ReactTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-            <div className="wordsStyle" dangerouslySetInnerHTML={{__html: this.props.content}}>
-            </div>
-          </ReactTransitionGroup>
+          <div className="wordsStyle" dangerouslySetInnerHTML={{__html: this.props.content}}>
+          </div>
         </div>
       )
     }
@@ -84,7 +75,7 @@ transition: opacity 300ms ease-in;
           [
             {
               title: "Lung Cancer Basics",
-              content: '<p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancerLearn more about the basics of lung cancer</p><p>test <a href="http://lung.org">Lung.org</a></p>'
+              content: '<p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancerLearn more about the basics of lung cancer</p>'
             },
             {
               title: "Lung Cancer Causes and Risk Factors",
@@ -121,8 +112,8 @@ transition: opacity 300ms ease-in;
   ReactDOM.render(<AccShell />, document.getElementById("root"));
 
   $(document).ready(function(){
-    $(".barStyle").attr("onclick", "$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')");
-    $(".barStyle").attr("onkeypress", "if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}");
+    // $(".barStyle").attr("onclick", "$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')");
+    // $(".barStyle").attr("onkeypress", "if(event.keyCode == (13 || 32)){$(this).next().slideToggle('fast'); $(this).toggleClass('selected'); $(this).find('span').toggleClass('flip')}");
   })
 
 
