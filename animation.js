@@ -66,7 +66,7 @@ function(e) {
   }
 }
 
-(e)=>{if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip')}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip')}}
+(e)=>{if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip');}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip');}}
 
 (e) => {
   if (e.keyCode == (13 || 32)) {
@@ -74,14 +74,14 @@ function(e) {
       e.currentTarget.nextElementSibling.style.height = 'inherit';
       e.currentTarget.nextElementSibling.style.display = 'block';
       e.currentTarget.classList.add('selected');
-      e.currentTarget.querySelector('span').classList.add('flip')
+      e.currentTarget.querySelector('span').classList.add('flip');
     } else {
       e.currentTarget.nextElementSibling.style.display = 'none';
       e.currentTarget.nextElementSibling.style.height = '0';
       e.currentTarget.classList.remove('selected');
-      e.currentTarget.querySelector('span').classList.remove('flip')
+      e.currentTarget.querySelector('span').classList.remove('flip');
     }
   }
 }
 
-(e)=>{if(e.keyCode==(13||32)){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip')}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip')}}}
+(e)=>{if(e.keyCode==(13||32)){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip');}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip');}}}
