@@ -1,17 +1,37 @@
-<style media="screen">
-  .wordsStyle{
-    transition: height 1s ease;
-  }
-</style>
-
-<div class="packetStyle">
+<!-- <div class="packetStyle">
   <div class="barStyle" tabindex="0" onclick="if(!this.classList.contains('selected')){this.nextElementSibling.style.height='inherit';this.nextElementSibling.style.display='block';this.classList.add('selected');}else{this.nextElementSibling.style.display='none';this.nextElementSibling.style.height='0';this.classList.remove('selected');}" onkeypress="if(event.keyCode == (13 || 32)){if(!this.classList.contains('selected')){this.nextElementSibling.style.height='inherit';this.nextElementSibling.style.display='block';this.classList.add('selected');}else{this.nextElementSibling.style.display='none';this.nextElementSibling.style.height='0';this.classList.remove('selected');}}">
     <h2 class="specp">Lung Cancer Basics<span class="downArrowStyle"><em class="fa fa-chevron-down"></em></span></h2>
   </div>
   <div class="wordsStyle " style="display: none;">
     <p>Lung cancer happens when cells in the lung change (mutate). They grow uncontrollably and cluster together to form a tumor. There are two main types of lung cancer, small cell lung cancer, and non-small cell lung cancer. <a href="http://www.lung.org/lung-health-and-diseases/lung-disease-lookup/lung-cancer/learn-about-lung-cancer/what-is-lung-cancer/lung-cancer-basics.html">Learn more about the basics of lung cancer.</a></p>
   </div>
-</div>
+</div> -->
+<style media="screen">
+  .wordsStylee{
+    padding: 15px;
+  }
+  .hideA{
+    /*opacity: 0;*/
+    /*-webkit-transition: opacity 2s linear;*/
+    /*-moz-transition: opacity 2s linear;*/
+    /*-ms-transition: opacity 2s linear;*/
+    /*-o-transition: opacity 2s linear;*/
+    /*transition: opacity 2s linear;*/
+    display: none;
+  }
+  .hideB{
+    transform: scale(0);
+    transition: transform .4s cubic-bezier(.5,0,.3,1);
+  }
+  .showA{
+    /*opacity: 1 !important;*/
+    display: block !important;
+  }
+  .showB{
+    transform: scale(1);
+
+  }
+</style>
 
 <br><br>
 
@@ -30,36 +50,19 @@ class AccReuse extends React.Component {
     this._handleKeyPress = this._handleKeyPress.bind(this);
   }
   _handleClick(){
-    (e)=>{console.log('poop');if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip');}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip');}}
   }
   _handleKeyPress(e){
-    (e)=>{if(e.key=='Enter'){console.log("DDONG");}}
   }
   render(){
     const arrow = <span className="downArrowStyle"><em className="fa fa-chevron-down"></em></span>;
     return (
       <div className="packetStyle">
-        <div
-          className={"barStyle"}
-          tabIndex="0"
-          onClick={      (e)=>{console.log('poop');if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip');}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip');}}}
-          onKeyPress={(e)=>{if(e.key=='Enter'){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.style.height='inherit';e.currentTarget.nextElementSibling.style.display='block';e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip');}else{e.currentTarget.nextElementSibling.style.display='none';e.currentTarget.nextElementSibling.style.height='0';e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip');}}}}>
+        <div className={"barStyle"} tabIndex="0" onClick={(e)=>{if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.classList.add('showA');e.currentTarget.nextElementSibling.classList.add('showB');e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip')}else{e.currentTarget.nextElementSibling.classList.remove('showA');e.currentTarget.nextElementSibling.classList.remove('showB');e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip')}}} onKeyPress={
+          (e)=>{if(e.key=='Enter'){if(!e.currentTarget.classList.contains('selected')){e.currentTarget.nextElementSibling.classList.add('showA');e.currentTarget.nextElementSibling.classList.add('showB');e.currentTarget.classList.add('selected');e.currentTarget.querySelector('span').classList.add('flip')}else{e.currentTarget.nextElementSibling.classList.remove('showA');e.currentTarget.nextElementSibling.classList.remove('showB');e.currentTarget.classList.remove('selected');e.currentTarget.querySelector('span').classList.remove('flip')}}}}>
           <h2 className="specp">{this.props.title} {arrow}</h2>
         </div>
-        <div className="wordsStyle" dangerouslySetInnerHTML={{__html: this.props.content}}>
+        <div className="wordsStylee hideA hideB" dangerouslySetInnerHTML={{__html: this.props.content}}>
         </div>
-      </div>
-    )
-  }
-}
-
-class AccReuseSimple extends React.Component {
-  render(){
-    const arrow = <span className="downArrowStyle"><em className="fa fa-chevron-down"></em></span>;
-    return (
-      <div className="packetStyle">
-        <p>{this.props.title}</p>
-        <p>{this.props.content}</p>
       </div>
     )
   }
