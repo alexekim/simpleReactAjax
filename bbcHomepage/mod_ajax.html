@@ -1,9 +1,3 @@
-<script type="text/javascript">
-	$(".content").on("load", function() {
-		console.log("loaded");
-		console.log(new Date());
-	})
-</script>
 <div class="content">
 	<p><img src="/preview!www.lung.org/images/support-community/supcomm_bbc_g.jpg" /></p>
 	<p>Better Breathers Clubs are welcoming support groups for patients and caregivers affected by chronic lung diseases including COPD, pulmonary fibrosis and lung cancer. Learn better ways to better cope with lung disease while getting the support of others
@@ -557,17 +551,179 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		bbcXML();
-		console.log("DID XML");
-		// initialDisplayOneState();
-		// console.log("DID DISPLAY");
-		// var currentState = Cookies.get("state");
-		// var stateList  = document.getElementsByClassName(stateList);
-		// for (var i = 0; i < currentStateList.length; i++) {
-		// 	currentStateList[i].style.display = "block";
-		// }
-	})
+	var initialDisplayOneState = function(){
+		var currentState = Cookies.get("state");
+		console.log("currentState is: " + currentState);
+		switch (currentState) {
+			case "AL":
+				$(".alabama ").css("display","block");
+				break;
+			case "AK":
+				$(".alaska ").css("display","block");
+				break;
+			case "AZ":
+				$(".arizona ").css("display","block");
+				break;
+			case "AR":
+				$(".arkansas ").css("display","block");
+				break;
+			case "CA":
+				$(".california ").css("display","block");
+				break;
+			case "CO":
+				$(".colorado ").css("display","block");
+				break;
+			case "CT":
+				$(".connecticut ").css("display","block");
+				break;
+			case "DE":
+				$(".delaware ").css("display","block");
+				break;
+			case "DC":
+				$(".districtOfColumbia ").css("display","block");
+				break;
+			case "FL":
+				$(".florida ").css("display","block");
+				break;
+			case "GA":
+				$(".georgia ").css("display","block");
+				break;
+			case "HI":
+				$(".hawaii ").css("display","block");
+				break;
+			case "ID":
+				$(".idaho ").css("display","block");
+				break;
+			case "IL":
+				$(".illinois ").css("display","block");
+
+				break;
+			case "IN":
+				$(".indiana ").css("display","block");
+
+				break;
+			case "IA":
+				$(".iowa ").css("display","block");
+
+				break;
+			case "KS":
+				$(".kansas ").css("display","block");
+
+				break;
+			case "KY":
+
+				$(".kentucky ").css("display","block");
+				break;
+			case "LA":
+
+				break;
+				$(".lousiana ").css("display","block");
+			case "ME":
+
+				break;
+			case "MD":
+				$(".maryland ").css("display","block");
+
+				break;
+			case "MA":
+
+				$(".massachusetts ").css("display","block");
+				break;
+			case "MI":
+
+				break;
+				$(".michigan ").css("display","block");
+			case "MN":
+
+				break;
+			case "MS":
+				$(".minnesota ").css("display","block");
+
+				break;
+			case "MO":
+				$(".missouri ").css("display","block");
+				break;
+			case "MT":
+				$(".montana ").css("display","block");
+				break;
+			case "NE":
+				$(".nebraska ").css("display","block");
+				break;
+			case "NV":
+				$(".nevada ").css("display","block");
+				break;
+			case "NH":
+				$(".newHampshire ").css("display","block");
+				break;
+			case "NJ":
+				$(".newJersey ").css("display","block");
+				break;
+			case "NM":
+				$(".newMexico ").css("display","block");
+				break;
+			case "NY":
+				$(".newYork ").css("display","block");
+				break;
+			case "NC":
+				$(".northCarolina ").css("display","block");
+				break;
+			case "ND":
+				$(".northDakota ").css("display","block");
+				break;
+			case "OH":
+				$(".ohio ").css("display","block");
+				break;
+			case "OK":
+				$(".oklahoma ").css("display","block");
+				break;
+			case "OR":
+				$(".oregon ").css("display","block");
+				break;
+			case "PA":
+				$(".pennsylvania ").css("display","block");
+				break;
+			case "RI":
+				$(".rhodeIsland ").css("display","block");
+				break;
+			case "SC":
+				$(".southCarolina ").css("display","block");
+				break;
+			case "SD":
+				$(".southDakota ").css("display","block");
+				break;
+			case "TN":
+				$(".tennessee ").css("display","block");
+				break;
+			case "TX":
+				$(".texas ").css("display","block");
+				break;
+			case "UT":
+				$(".utah ").css("display","block");
+				break;
+			case "VT":
+				$(".vermont ").css("display","block");
+				break;
+			case "VA":
+				$(".virginia ").css("display","block");
+				break;
+			case "WA":
+				$(".washington ").css("display","block");
+				break;
+			case "WV":
+				$(".westVirginia ").css("display","block");
+				break;
+			case "WI":
+				$(".wisconsin ").css("display","block");
+				break;
+			case "WY":
+				$(".wyoming ").css("display","block");
+				break;
+			default:
+				console.warn("no state matched...double check list in switch statement");
+		}
+	}
+
+
 
 	var bbcXML = function() {
 		var currentState = Cookies.get("state");
@@ -787,201 +943,20 @@
 		})
 	};
 
-	var initialDisplayOneState = function(){
-		var currentState = Cookies.get("state");
-		switch (currentState) {
-			case "AL":
-				$(".alabama ").css("display","block");
-				break;
-			case "AK":
-				$(".alaska ").css("display","block");
-				break;
-			case "AZ":
-				$(".arizona ").css("display","block");
-				break;
-			case "AR":
-				$(".arkansas ").css("display","block");
-				break;
-			case "CA":
-				$(".california ").css("display","block");
-				break;
-			case "CO":
-				$(".colorado ").css("display","block");
-				break;
-			case "CT":
-				$(".connecticut ").css("display","block");
-				break;
-			case "DE":
-				$(".delaware ").css("display","block");
-				break;
-			case "DC":
-				$(".districtOfColumbia ").css("display","block");
-				break;
-			case "FL":
-				$(".florida ").css("display","block");
-				break;
-			case "GA":
-				$(".georgia ").css("display","block");
-				break;
-			case "HI":
-				$(".hawaii ").css("display","block");
-				break;
-			case "ID":
-				$(".idaho ").css("display","block");
-				break;
-			case "IL":
-				$(".illinois ").css("display","block");
+	$(document).ready(function() {
+		bbcXML();
+		console.warn("bbcXML() has run");
+		initialDisplayOneState();
+		console.warn("initialDisplayOneState() has run");
+		// initialDisplayOneState();
+		// console.log("DID DISPLAY");
+		// var currentState = Cookies.get("state");
+		// var stateList  = document.getElementsByClassName(stateList);
+		// for (var i = 0; i < currentStateList.length; i++) {
+		// 	currentStateList[i].style.display = "block";
+		// }
+	})
 
-				break;
-			case "IN":
-				$(".indiana ").css("display","block");
 
-				break;
-			case "IA":
-				$(".iowa ").css("display","block");
 
-				break;
-			case "KS":
-				$(".kansas ").css("display","block");
-
-				break;
-			case "KY":
-
-				$(".kentucky ").css("display","block");
-				break;
-			case "LA":
-
-				break;
-				$(".lousiana ").css("display","block");
-			case "ME":
-
-				break;
-			case "MD":
-				$(".maryland ").css("display","block");
-
-				break;
-			case "MA":
-
-				$(".massachusetts ").css("display","block");
-				break;
-			case "MI":
-
-				break;
-				$(".michigan ").css("display","block");
-			case "MN":
-
-				break;
-			case "MS":
-				$(".minnesota ").css("display","block");
-
-				break;
-			case "MO":
-
-				$(".missouri ").css("display","block");
-				break;
-			case "MT":
-				$(".montana ").css("display","block");
-
-				break;
-			case "NE":
-				$(".nebraska ").css("display","block");
-
-				break;
-			case "NV":
-				$(".nevada ").css("display","block");
-
-				break;
-			case "NH":
-				$(".newHampshire ").css("display","block");
-
-				break;
-			case "NJ":
-				$(".newJersey ").css("display","block");
-
-				break;
-			case "NM":
-				$(".newMexico ").css("display","block");
-
-				break;
-			case "NY":
-				$(".newYork ").css("display","block");
-
-				break;
-			case "NC":
-				$(".northCarolina ").css("display","block");
-
-				break;
-			case "ND":
-				$(".northDakota ").css("display","block");
-
-				break;
-			case "OH":
-				$(".ohio ").css("display","block");
-
-				break;
-			case "OK":
-				$(".oklahoma ").css("display","block");
-
-				break;
-			case "OR":
-				$(".oregon ").css("display","block");
-
-				break;
-			case "PA":
-				$(".pennsylvania ").css("display","block");
-
-				break;
-			case "RI":
-				$(".rhodeIsland ").css("display","block");
-
-				break;
-			case "SC":
-				$(".southCarolina ").css("display","block");
-
-				break;
-			case "SD":
-				$(".southDakota ").css("display","block");
-
-				break;
-			case "TN":
-				$(".tennessee ").css("display","block");
-
-				break;
-			case "TX":
-				$(".texas ").css("display","block");
-
-				break;
-			case "UT":
-				$(".utah ").css("display","block");
-
-				break;
-			case "VT":
-				$(".vermont ").css("display","block");
-
-				break;
-			case "VA":
-				$(".virginia ").css("display","block");
-
-				break;
-			case "WA":
-				$(".washington ").css("display","block");
-
-				break;
-			case "WV":
-				$(".westVirginia ").css("display","block");
-
-				break;
-			case "WI":
-				$(".wisconsin ").css("display","block");
-
-				break;
-			case "WY":
-				$(".wyoming ").css("display","block");
-
-				break;
-			default:
-				console.warn("no state matched...double check list in switch statement");
-		}
-
-	}
 </script>
