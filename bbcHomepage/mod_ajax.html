@@ -21,6 +21,70 @@
 </div>
 
 
+<div class="state-select-box">
+	<div class="styled-select" id="state_select">
+		<form>
+			<label for="state" class="hidden">State</label>
+			<select name="state" id="stateSelect">
+				<option value="">Select a state:</option>
+				<option value="al">Alabama</option>
+				<option value="ak">Alaska</option>
+				<option value="az">Arizona</option>
+				<option value="ar">Arkansas</option>
+				<option value="ca">California</option>
+				<option value="co">Colorado</option>
+				<option value="ct">Connecticut</option>
+				<option value="de">Delaware</option>
+				<option value="dc">District of Columbia</option>
+				<option value="fl">Florida</option>
+				<option value="ga">Georgia</option>
+				<option value="hi">Hawaii</option>
+				<option value="id">Idaho</option>
+				<option value="il">Illinois</option>
+				<option value="in">Indiana</option>
+				<option value="ia">Iowa</option>
+				<option value="ks">Kansas</option>
+				<option value="ky">Kentucky</option>
+				<option value="la">Louisiana</option>
+				<option value="me">Maine</option> --&gt;
+				<option value="md">Maryland</option>
+				<option value="ma">Massachusetts</option>
+				<option value="mi">Michigan</option>
+				<option value="mn">Minnesota</option>
+				<option value="ms">Mississippi</option>
+				<option value="mo">Missouri</option>
+				<option value="mt">Montana</option>
+				<option value="ne">Nebraska</option>
+				<option value="nv">Nevada</option>
+				<option value="nh">New Hampshire</option>
+				<option value="nj">New Jersey</option>
+				<option value="nm">New Mexico</option>
+				<option value="ny">New York</option>
+				<option value="nc">North Carolina</option>
+				<option value="nd">North Dakota</option>
+				<option value="oh">Ohio</option>
+				<option value="ok">Oklahoma</option>
+				<option value="or">Oregon</option>
+				<option value="pa">Pennsylvania</option>
+				<option value="ri">Rhode Island</option>
+				<option value="sc">South Carolina</option>
+				<option value="sd">South Dakota</option>
+				<option value="tn">Tennessee</option>
+				<option value="tx">Texas</option>
+				<option value="ut">Utah</option>
+				<option value="vt">Vermont</option>
+				<option value="va">Virginia</option>
+				<option value="wa">Washington</option>
+				<option value="wv">West Virginia</option>
+				<option value="wi">Wisconsin</option>
+				<option value="wy">Wyoming</option>
+			</select>
+		</form>
+	</div>
+	<button id="viewAllStates" class="button blue" style="width: 175px">View All States</button>
+</div>
+
+
 <style media="screen">
 	.stateList {
 		/*starts like this*/
@@ -551,179 +615,169 @@
 </div>
 
 <script type="text/javascript">
-	var initialDisplayOneState = function(){
+	var initialDisplayOneState = function() {
 		var currentState = Cookies.get("state");
 		console.log("currentState is: " + currentState);
 		switch (currentState) {
 			case "AL":
-				$(".alabama ").css("display","block");
+				$(".alabama ").css("display", "block");
 				break;
 			case "AK":
-				$(".alaska ").css("display","block");
+				$(".alaska ").css("display", "block");
 				break;
 			case "AZ":
-				$(".arizona ").css("display","block");
+				$(".arizona ").css("display", "block");
 				break;
 			case "AR":
-				$(".arkansas ").css("display","block");
+				$(".arkansas ").css("display", "block");
 				break;
 			case "CA":
-				$(".california ").css("display","block");
+				$(".california ").css("display", "block");
 				break;
 			case "CO":
-				$(".colorado ").css("display","block");
+				$(".colorado ").css("display", "block");
 				break;
 			case "CT":
-				$(".connecticut ").css("display","block");
+				$(".connecticut ").css("display", "block");
 				break;
 			case "DE":
-				$(".delaware ").css("display","block");
+				$(".delaware ").css("display", "block");
 				break;
 			case "DC":
-				$(".districtOfColumbia ").css("display","block");
+				$(".districtOfColumbia ").css("display", "block");
 				break;
 			case "FL":
-				$(".florida ").css("display","block");
+				$(".florida ").css("display", "block");
 				break;
 			case "GA":
-				$(".georgia ").css("display","block");
+				$(".georgia ").css("display", "block");
 				break;
 			case "HI":
-				$(".hawaii ").css("display","block");
+				$(".hawaii ").css("display", "block");
 				break;
 			case "ID":
-				$(".idaho ").css("display","block");
+				$(".idaho ").css("display", "block");
 				break;
 			case "IL":
-				$(".illinois ").css("display","block");
-
+				$(".illinois ").css("display", "block");
 				break;
 			case "IN":
-				$(".indiana ").css("display","block");
-
+				$(".indiana ").css("display", "block");
 				break;
 			case "IA":
-				$(".iowa ").css("display","block");
-
+				$(".iowa ").css("display", "block");
 				break;
 			case "KS":
-				$(".kansas ").css("display","block");
-
+				$(".kansas ").css("display", "block");
 				break;
 			case "KY":
-
-				$(".kentucky ").css("display","block");
+				$(".kentucky ").css("display", "block");
 				break;
 			case "LA":
-
+				$(".louisiana ").css("display", "block");
 				break;
-				$(".lousiana ").css("display","block");
+				$(".lousiana ").css("display", "block");
 			case "ME":
-
+				$(".maine ").css("display", "block");
 				break;
 			case "MD":
-				$(".maryland ").css("display","block");
-
+				$(".maryland ").css("display", "block");
 				break;
 			case "MA":
-
-				$(".massachusetts ").css("display","block");
+				$(".massachusetts ").css("display", "block");
 				break;
 			case "MI":
-
+				$(".michigan ").css("display", "block");
 				break;
-				$(".michigan ").css("display","block");
+				$(".michigan ").css("display", "block");
 			case "MN":
-
+			$(".minnesota ").css("display", "block");
 				break;
 			case "MS":
-				$(".minnesota ").css("display","block");
-
+				$(".missippi ").css("display", "block");
 				break;
 			case "MO":
-				$(".missouri ").css("display","block");
+				$(".missouri ").css("display", "block");
 				break;
 			case "MT":
-				$(".montana ").css("display","block");
+				$(".montana ").css("display", "block");
 				break;
 			case "NE":
-				$(".nebraska ").css("display","block");
+				$(".nebraska ").css("display", "block");
 				break;
 			case "NV":
-				$(".nevada ").css("display","block");
+				$(".nevada ").css("display", "block");
 				break;
 			case "NH":
-				$(".newHampshire ").css("display","block");
+				$(".newHampshire ").css("display", "block");
 				break;
 			case "NJ":
-				$(".newJersey ").css("display","block");
+				$(".newJersey ").css("display", "block");
 				break;
 			case "NM":
-				$(".newMexico ").css("display","block");
+				$(".newMexico ").css("display", "block");
 				break;
 			case "NY":
-				$(".newYork ").css("display","block");
+				$(".newYork ").css("display", "block");
 				break;
 			case "NC":
-				$(".northCarolina ").css("display","block");
+				$(".northCarolina ").css("display", "block");
 				break;
 			case "ND":
-				$(".northDakota ").css("display","block");
+				$(".northDakota ").css("display", "block");
 				break;
 			case "OH":
-				$(".ohio ").css("display","block");
+				$(".ohio ").css("display", "block");
 				break;
 			case "OK":
-				$(".oklahoma ").css("display","block");
+				$(".oklahoma ").css("display", "block");
 				break;
 			case "OR":
-				$(".oregon ").css("display","block");
+				$(".oregon ").css("display", "block");
 				break;
 			case "PA":
-				$(".pennsylvania ").css("display","block");
+				$(".pennsylvania ").css("display", "block");
 				break;
 			case "RI":
-				$(".rhodeIsland ").css("display","block");
+				$(".rhodeIsland ").css("display", "block");
 				break;
 			case "SC":
-				$(".southCarolina ").css("display","block");
+				$(".southCarolina ").css("display", "block");
 				break;
 			case "SD":
-				$(".southDakota ").css("display","block");
+				$(".southDakota ").css("display", "block");
 				break;
 			case "TN":
-				$(".tennessee ").css("display","block");
+				$(".tennessee ").css("display", "block");
 				break;
 			case "TX":
-				$(".texas ").css("display","block");
+				$(".texas ").css("display", "block");
 				break;
 			case "UT":
-				$(".utah ").css("display","block");
+				$(".utah ").css("display", "block");
 				break;
 			case "VT":
-				$(".vermont ").css("display","block");
+				$(".vermont ").css("display", "block");
 				break;
 			case "VA":
-				$(".virginia ").css("display","block");
+				$(".virginia ").css("display", "block");
 				break;
 			case "WA":
-				$(".washington ").css("display","block");
+				$(".washington ").css("display", "block");
 				break;
 			case "WV":
-				$(".westVirginia ").css("display","block");
+				$(".westVirginia ").css("display", "block");
 				break;
 			case "WI":
-				$(".wisconsin ").css("display","block");
+				$(".wisconsin ").css("display", "block");
 				break;
 			case "WY":
-				$(".wyoming ").css("display","block");
+				$(".wyoming ").css("display", "block");
 				break;
 			default:
-				console.warn("no state matched...double check list in switch statement");
+				console.warn("CSS: no state matched...double check list in switch statement");
 		}
 	}
-
-
 
 	var bbcXML = function() {
 		var currentState = Cookies.get("state");
@@ -782,156 +836,301 @@
 							break;
 						case "IL":
 							$(".illinois ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "IN":
 							$(".indiana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "IA":
 							$(".iowa ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "KS":
 							$(".kansas ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "KY":
-
 							$(".kentucky ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "LA":
-
-							break;
 							$(".lousiana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
 						case "ME":
-
+							$(".maine ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "MD":
 							$(".maryland ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "MA":
-
 							$(".massachusetts ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "MI":
-
-							break;
 							$(".michigan ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
 						case "MN":
-
+							$(".minnesota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "MS":
-							$(".minnesota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
+							$(".mississippi ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "MO":
-
 							$(".missouri ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
 							break;
 						case "MT":
 							$(".montana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NE":
 							$(".nebraska ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NV":
 							$(".nevada ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NH":
 							$(".newHampshire ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NJ":
 							$(".newJersey ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NM":
 							$(".newMexico ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NY":
 							$(".newYork ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "NC":
 							$(".northCarolina ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "ND":
 							$(".northDakota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "OH":
 							$(".ohio ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "OK":
 							$(".oklahoma ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "OR":
 							$(".oregon ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "PA":
 							$(".pennsylvania ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "RI":
 							$(".rhodeIsland ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "SC":
 							$(".southCarolina ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "SD":
 							$(".southDakota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "TN":
 							$(".tennessee ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "TX":
 							$(".texas ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "UT":
 							$(".utah ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "VT":
 							$(".vermont ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "VA":
 							$(".virginia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "WA":
 							$(".washington ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "WV":
 							$(".westVirginia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "WI":
 							$(".wisconsin ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						case "WY":
 							$(".wyoming ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
-
 							break;
 						default:
-							console.warn("no state matched...double check list in switch statement");
+							console.warn("AJAX: no state matched...double check list in switch statement");
+					}
+				})
+				// $("#bbc_feed_large").css("display", "block");
+			},
+			error: function(xml) {
+				// $(".errorAjaxBackupLink").css("display", "block");
+				throw "An error occurred while processing the Better Breathers Club XML file.";
+			}
+		})
+	};
+
+	var bbcOneState = function() {
+		var currentState = Cookies.get("state");
+		$.ajax({
+			type: "GET",
+			url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
+			dataType: "xml",
+			success: function(xml) {
+				// console.log(xml);
+				var count = 0;
+				$(xml).find("bbc_item").each(function(i) {
+					var title = $(this).find("title").text();
+					var url = $(this).find("link").text();
+					var city = $(this).find("city").text();
+					var state = $(this).find("state").text();
+					switch (state) {
+						case "AL":
+							$(".alabama ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "AK":
+							$(".alaska ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "AZ":
+							$(".arizona ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "AR":
+							$(".arkansas ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "CA":
+							$(".california ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "CO":
+							$(".colorado ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "CT":
+							$(".connecticut ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "DE":
+							$(".delaware ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "DC":
+							$(".districtOfColumbia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "FL":
+							$(".florida ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "GA":
+							$(".georgia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "HI":
+							$(".hawaii ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "ID":
+							$(".idaho ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "IL":
+							$(".illinois ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "IN":
+							$(".indiana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "IA":
+							$(".iowa ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "KS":
+							$(".kansas ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "KY":
+							$(".kentucky ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "LA":
+							$(".lousiana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "ME":
+							$(".maine ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MD":
+							$(".maryland ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MA":
+							$(".massachusetts ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MI":
+							$(".michigan ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MN":
+							$(".minnesota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MS":
+							$(".mississippi ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MO":
+							$(".missouri ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "MT":
+							$(".montana ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NE":
+							$(".nebraska ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NV":
+							$(".nevada ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NH":
+							$(".newHampshire ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NJ":
+							$(".newJersey ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NM":
+							$(".newMexico ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NY":
+							$(".newYork ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "NC":
+							$(".northCarolina ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "ND":
+							$(".northDakota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "OH":
+							$(".ohio ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "OK":
+							$(".oklahoma ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "OR":
+							$(".oregon ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "PA":
+							$(".pennsylvania ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "RI":
+							$(".rhodeIsland ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "SC":
+							$(".southCarolina ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "SD":
+							$(".southDakota ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "TN":
+							$(".tennessee ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "TX":
+							$(".texas ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "UT":
+							$(".utah ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "VT":
+							$(".vermont ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "VA":
+							$(".virginia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "WA":
+							$(".washington ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "WV":
+							$(".westVirginia ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "WI":
+							$(".wisconsin ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						case "WY":
+							$(".wyoming ul").append("<li><a target='_blank' href='" + url + "'>" + title + " " + city + ", " + state + "</li>");
+							break;
+						default:
+							console.warn("AJAX: no state matched...double check list in switch statement");
 					}
 				})
 				// $("#bbc_feed_large").css("display", "block");
@@ -944,19 +1143,23 @@
 	};
 
 	$(document).ready(function() {
-		bbcXML();
-		console.warn("bbcXML() has run");
+		bbcOneState();
+		console.warn("bbcOneState() has run");
 		initialDisplayOneState();
 		console.warn("initialDisplayOneState() has run");
-		// initialDisplayOneState();
-		// console.log("DID DISPLAY");
-		// var currentState = Cookies.get("state");
-		// var stateList  = document.getElementsByClassName(stateList);
-		// for (var i = 0; i < currentStateList.length; i++) {
-		// 	currentStateList[i].style.display = "block";
-		// }
 	})
 
+	$("#stateSelect").on("change", function() {
+		if ($(this).val() !== "") {
+			$(".stateList").css("display", "none");
+			setState($(this).val().toUpperCase());
+			bbcOneState();
+			initialDisplayOneState();
+		}
+	})
 
-
+	$("#viewAllStates").on("click", function() {
+		bbcXML();
+		$(".stateList").css("display", "block");
+	})
 </script>
