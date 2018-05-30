@@ -93,10 +93,19 @@
 
 	#loadSpinner {
 		display: none;
+		text-align: center;
 	}
 </style>
 
-<img id="loadSpinner" style="height: 50px; width: 50px;" src="http://awasudesign.vyqdy3k2nc1vkrjlhx.netdna-cdn.com/wp-content/uploads/2017/03/spinner-1.gif" />
+<div id="loadSpinner">
+	<img alt="loading events indicator" style="margin: 0 auto; height: 50px; width: 50px;" src="http://awasudesign.vyqdy3k2nc1vkrjlhx.netdna-cdn.com/wp-content/uploads/2017/03/spinner-1.gif" />
+	<p>
+		<strong>
+			Loading Nationwide Better Breathers Clubs...
+		</strong>
+	</p>
+
+</div>
 
 <div class="bbcFeed">
 	<!-- Alabama -->
@@ -976,7 +985,7 @@
 				// $("#bbc_feed_large").css("display", "block");
 				$(".stateList").css("display", "block");
 				$("#loadSpinner").hide();
-				var allUls = document.getElementsByClassName("stateUl")
+				var allUls = document.getElementsByClassName("stateUl");
 				for (var i = 0; i < allUls.length; i++) {
 					var x = allUls[i];
 					if (x.children.length == 0) {
@@ -998,9 +1007,9 @@
 			url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
 			dataType: "xml",
 			success: function(xml) {
-				console.log(xml);
+				// console.log(xml);
 				var count = 0;
-				console.log($(xml).find("bbc_item").length);
+				// console.log($(xml).find("bbc_item").length);
 				if ($(xml).find("bbc_item").length == 0) {
 					$(".bbcFeed").append("<p class='noBBC'>No Better Breathers Clubs in this area at this time.</p>");
 				}
@@ -1194,16 +1203,16 @@
 
 	$(document).ready(function() {
 		bbcOneState();
-		console.warn("bbcOneState() has run");
+		// console.warn("bbcOneState() has run");
 		initialDisplayOneState();
-		console.warn("initialDisplayOneState() has run");
+		// console.warn("initialDisplayOneState() has run");
 	})
 
 	$("#stateSelect").on("change", function() {
 		if ($(this).val() !== "") {
 			$(".noBBC").remove();
 			$(".stateList").css("display", "none");
-			$(".stateList li").remove();
+			$(".stateUl").children().remove();
 			setState($(this).val().toUpperCase());
 			bbcOneState();
 			initialDisplayOneState();
@@ -1212,9 +1221,9 @@
 
 	$("#viewAllStates").on("click", function() {
 		$(".noBBC").remove();
+		$(".stateUl").children().remove();
 		$("#loadSpinner").css("display", "block");
 		$(".stateList").css("display", "none");
 		bbcXML();
-		// $(".stateList").css("display", "block");
 	})
 </script>
