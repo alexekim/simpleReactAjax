@@ -1219,6 +1219,26 @@
 		}
 	})
 
+	var forOneState = function(){
+		$(".noBBC").remove();
+		$(".stateList").css("display", "none");
+		$(".stateUl").children().remove();
+		// setState($(this).val().toUpperCase());
+		bbcOneState();
+		initialDisplayOneState();
+	}
+
+	// top menu change state
+	$("#stateSelectList").on("change", function() {
+			setTimeout(forOneState, 250);
+	})
+
+	$("#searchZip").on("submit", function(){
+		setTimeout(forOneState, 300);
+	})
+	// end top menu change state
+
+
 	$("#viewAllStates").on("click", function() {
 		$(".noBBC").remove();
 		$(".stateUl").children().remove();
@@ -1226,4 +1246,8 @@
 		$(".stateList").css("display", "none");
 		bbcXML();
 	})
+
+
+
+
 </script>
