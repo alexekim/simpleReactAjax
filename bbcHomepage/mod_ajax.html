@@ -796,11 +796,17 @@
 	}
 
 	var bbcXML = function() {
+		if (document.URL.indexOf("https") !== -1   ) {
+			var ajaxURL = "https://www.lung.org/assets/reus/bbc-feed.xml";
+		} else {
+			var ajaxURL = "http://www.lung.org/assets/reus/bbc-feed.xml"
+		}
+		// console.warn(ajaxURL);
 		var currentState = Cookies.get("state");
 		$.ajax({
 			type: "GET",
 			// url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
-			url: "http://www.lung.org/assets/reus/bbc-feed.xml",
+			url: ajaxURL,
 			dataType: "xml",
 			success: function(xml) {
 				// console.log(xml);
@@ -1001,11 +1007,18 @@
 		})
 	};
 
+
 	var bbcOneState = function() {
+		if (document.URL.indexOf("https") !== -1   ) {
+			var ajaxURL = "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=";
+		} else {
+			var ajaxURL = "http://www.lung.org/assets/reus/bbc-feed.xml?related_state="
+		}
+		console.warn(ajaxURL);
 		var currentState = Cookies.get("state");
 		$.ajax({
 			type: "GET",
-			url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
+			url: ajaxURL + currentState,
 			dataType: "xml",
 			success: function(xml) {
 				// console.log(xml);
