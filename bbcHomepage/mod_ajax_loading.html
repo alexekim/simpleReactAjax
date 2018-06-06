@@ -102,7 +102,8 @@
 	<p>
 		<strong>
 			Loading Nationwide Better Breathers Clubs.<br/>
-			This may take a few moments.
+			This may take a few moments.<br/>
+			<span id="progress">0</span> bytes downloaded.
 		</strong>
 	</p>
 
@@ -796,7 +797,7 @@
 	}
 
 	var bbcXML = function() {
-		if (document.URL.indexOf("https") !== -1   ) {
+		if (document.URL.indexOf("https") !== -1) {
 			var ajaxURL = "https://www.lung.org/assets/reus/bbc-feed.xml";
 		} else {
 			var ajaxURL = "http://www.lung.org/assets/reus/bbc-feed.xml"
@@ -808,7 +809,7 @@
 			// url: "http://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
 			url: ajaxURL,
 			dataType: "xml",
-			success: function(xml) {
+				success: function(xml) {
 				// console.log(xml);
 				var count = 0;
 				$(xml).find("bbc_item").each(function(i) {
@@ -1003,13 +1004,40 @@
 			error: function(xml) {
 				// $(".errorAjaxBackupLink").css("display", "block");
 				throw "An error occurred while processing the Better Breathers Club XML file.";
-			}
+			},
+			xhr: function(){
+					var xhr = new window.XMLHttpRequest();
+					//Upload progress
+					// xhr.upload.addEventListener("progress", function(evt){
+					//   if (evt.lengthComputable) {
+					//     var percentComplete = evt.loaded / evt.total;
+					//     //Do something with upload progress
+					//     console.log(percentComplete);
+					//   }
+					// }, false);
+					//Download progress
+					xhr.addEventListener("progress", function(evt){
+						console.log("prog1");
+						console.log(evt.lengthComputable);
+						console.log("evt.loaded: " + evt.loaded);
+						console.log("evt.total:" + evt.total);
+						if (evt.lengthComputable) {
+							console.log("prog2");
+							var percentComplete = evt.loaded / evt.total;
+							//Do something with download progress
+							console.log(percentComplete);
+						}
+						$("#progress").html(evt.loaded);
+					}, false);
+					return xhr;
+				}
+
 		})
 	};
 
 
 	var bbcOneState = function() {
-		if (document.URL.indexOf("https") !== -1   ) {
+		if (document.URL.indexOf("https") !== -1) {
 			var ajaxURL = "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=";
 		} else {
 			var ajaxURL = "http://www.lung.org/assets/reus/bbc-feed.xml?related_state="
@@ -1233,7 +1261,7 @@
 		}
 	})
 
-	var forOneState = function(){
+	var forOneState = function() {
 		$(".noBBC").remove();
 		$(".stateList").css("display", "none");
 		$(".stateUl").children().remove();
@@ -1244,10 +1272,10 @@
 
 	// top menu change state
 	$("#stateSelectList").on("change", function() {
-			setTimeout(forOneState, 250);
+		setTimeout(forOneState, 250);
 	})
 
-	$("#searchZip").on("submit", function(){
+	$("#searchZip").on("submit", function() {
 		setTimeout(forOneState, 300);
 	})
 	// end top menu change state
@@ -1260,8 +1288,4 @@
 		$(".stateList").css("display", "none");
 		bbcXML();
 	})
-
-
-
-
 </script>
