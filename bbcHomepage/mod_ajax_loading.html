@@ -103,7 +103,7 @@
 		<strong>
 			Loading Nationwide Better Breathers Clubs.<br/>
 			This may take a few moments.<br/>
-			<span id="progress">0</span> bytes downloaded.
+			<span id="progress">0</span>kb downloaded...
 		</strong>
 	</p>
 
@@ -1017,17 +1017,13 @@
 					// }, false);
 					//Download progress
 					xhr.addEventListener("progress", function(evt){
-						console.log("prog1");
-						console.log(evt.lengthComputable);
-						console.log("evt.loaded: " + evt.loaded);
-						console.log("evt.total:" + evt.total);
-						if (evt.lengthComputable) {
-							console.log("prog2");
-							var percentComplete = evt.loaded / evt.total;
-							//Do something with download progress
-							console.log(percentComplete);
-						}
-						$("#progress").html(evt.loaded);
+						var loaded = evt.loaded*0.001;
+						var loaded = loaded.toFixed(2);
+						// if (evt.lengthComputable) {
+						// 	var percentComplete = evt.loaded / evt.total;
+						// 	//Do something with download progress
+						// }
+						document.getElementById("progress").innerHTML = loaded;
 					}, false);
 					return xhr;
 				}
