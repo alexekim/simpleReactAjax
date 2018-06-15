@@ -152,8 +152,8 @@
     render(){
       const bothArrays = this.state.titles.map( (title, index) =>
          (
-           <div  id={"bbc"+index} className="eachBBCWrapper" key={index}>
-             <a className="eachBBCLink" href={this.state.links[index]}>
+           <div id={"bbc"+index} className="eachBBCWrapper" key={index}>
+             <a target="_blank" className="eachBBCLink" href={this.state.links[index]}>
               <div className="eachBBC" >
                 <p className="bbcText">
                   <strong>{title}</strong>
