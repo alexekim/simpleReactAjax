@@ -33,7 +33,7 @@
 
     #bbcBtn {
       display: none;
-      position: absolute;
+      margin: 0 auto;
       background: #ed1b2d;
       font-family: 'lato', sans-serif;
       font-weight: 700;
@@ -48,12 +48,12 @@
       cursor: pointer;
     }
 
-    /*#bbcBtn:hover{
+    #bbcBtn:hover{
       background: #bad80a;
-    }*/
+    }
 
     #moreBBCs {
-      /*display: none;*/
+      display: none;
     }
 
     .errorAjaxBackupLink {
@@ -134,6 +134,8 @@
             } else if (count >= 4 && count <= 6) {
               $("#bbc_list .rowTwo").append(html);
             } else if (count >= 7 && count <= 9) {
+              //add SHOW MORE button
+              $("#bbcBtn").css("display", "block");
               $("#bbc_list .rowThree").append(html);
             } else if (count >= 10 && count <= 12) {
               $("#bbc_list .rowFour").append(html);
