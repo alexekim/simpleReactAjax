@@ -39,6 +39,41 @@
     line-height: 22px !important;
   }
 
+  /*.more{
+    display: none;
+  }*/
+  .centering{
+    text-align: center;
+  }
+  .showIt{
+    display: inline-block;
+  }
+  .showItBtn{
+    display: block;
+  }
+  .hideIt{
+    display: none !important;
+  }
+  #viewMoreBBC{
+    background: #ed1b2d;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 700;
+    width: 166px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    text-decoration: none;
+    border-radius: 25px;
+    text-align: center;
+    border: none;
+    font-family: 'lato', sans-serif;
+    cursor: pointer;
+  }
+  #viewMoreBBC:hover{
+    background: #bad80a;
+  }
 
 
   @media (max-width: 1000px){
@@ -68,6 +103,38 @@
     }
   }
 
+
+  class Button extends React.Component{
+    constructor(props){
+      super(props);
+    }
+    render(){
+      if(document.getElementsByClassName("more").length>0){
+        console.warn("show it");
+        const x = (
+          <div className="centering showIt">
+            <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
+          </div>
+        );
+        return x;
+      } else {
+        console.warn("hide it");
+        const x= (
+          <div className="centering hideIt">
+            <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
+          </div>
+        );
+        return x;
+      }
+      return (
+        <div className="x">
+          {x}
+        </div>
+      )
+    }
+
+  }
+
   class BbcComponents extends React.Component {
     constructor(props) {
       super(props);
@@ -82,20 +149,26 @@
       this.componentDidMount = this.componentDidMount.bind(this);
       const self = this;
       $("#stateSelectList").on("change", function() {
-        console.log("page was changed via state select list");
+        // console.log("page was changed via state select list");
         // setTimeout(self.componentDidMount, 250);
         self.componentDidMount();
       });
       $("[name='searchZip']").on("submit", function(){
-        // console.log("fire?");
-        console.log("page was changed via zip code");
+        // // console.log("fire?");
+        // console.log("page was changed via zip code");
         setTimeout(self.componentDidMount, 250);
         // self.componentDidMount();
-        // console.log("settimeout done");
+        // // console.log("settimeout done");
       });
     }
     handleClick(){
-      console.log("log");
+      // console.log("log");
+      let eachMore = document.getElementsByClassName("more");
+      for (var i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.remove("hideIt");
+        eachMore[i].classList.add("showIt");
+      }
+      document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
     }
     componentDidMount(){
       let currentState = Cookies.get("state");
@@ -104,14 +177,14 @@
         url: '//www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=' + currentState,
         dataType: "xml",
         success: data => {
-          console.log(data);
+          // console.log(data);
           if (data.getElementsByTagName("bbc_item").length <1) {
             this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: ["#"], cities: [""], usStates: [""]})
           }
           else{
             let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
             htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
-            console.log(htmlCollectionAllBbc_Item);
+            // console.log(htmlCollectionAllBbc_Item);
             // htmlCollectionAllBbc_Item is now an array, not an htmlcollection
             let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(cities => cities.getElementsByTagName("city")[0].innerHTML);
             let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(links => links.getElementsByTagName("link")[0].innerHTML);
@@ -149,11 +222,27 @@
           throw err;
         }
       })
+      let check = () => {
+        if (document.getElementsByClassName("more").length>0) {
+          document.getElementById("viewMoreBBCDiv").classList.remove("hideIt");
+          // console.log('not hiding it');
+        }
+        else{
+          document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
+          // console.log('hiding it');
+        }
+      };
+      setTimeout(check, 350);
     }
     render(){
+      let eachMore = document.getElementsByClassName("more");
+      for (var i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.add("hideIt");
+        eachMore[i].classList.remove("showIt");
+      }
       const bothArrays = this.state.titles.map( (title, index) =>
          (
-           <div id={"bbc"+index} className="eachBBCWrapper" key={index}>
+           <div id={"bbc"+index} className={index>5 ? "eachBBCWrapper more hideIt"  : "eachBBCWrapper"} key={index}>
              <a target="_blank" className="eachBBCLink" href={this.state.links[index]}>
               <div className="eachBBC" >
                 <p className="bbcText">
@@ -169,6 +258,9 @@
       return (
         <div className="bbcContainer">
           {bothArrays}
+          <div id="viewMoreBBCDiv" className="centering showItBtn">
+            <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
+          </div>
         </div>
       );
     }
@@ -176,4 +268,6 @@
 
 
   ReactDOM.render(<BbcContainer />, document.getElementById("root"));
+  // setTimeout(ReactDOM.render(<Button />, document.getElementById("root")), 1000);
+
 </script>
