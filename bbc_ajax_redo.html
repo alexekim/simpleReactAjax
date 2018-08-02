@@ -141,7 +141,7 @@
         success: data => {
           // console.log(data);
           if (data.getElementsByTagName("bbc_item").length <1) {
-            this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: ["#"], cities: [""], usStates: [""]})
+            this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: [""], cities: [""], usStates: [""]})
           }
           else{
             let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
