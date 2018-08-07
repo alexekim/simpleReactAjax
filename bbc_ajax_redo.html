@@ -223,5 +223,10 @@
       );
     }
   }
-  ReactDOM.render(<BbcContainer />, document.getElementById("root"));
+  setTimeout( ()=> {
+      ReactDOM.render(<BbcContainer />,
+         document.getElementById("root")
+       );
+  }, 2000);
+
 </script>
