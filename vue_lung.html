@@ -1,7 +1,15 @@
 <style media="screen">
   .bbcItem {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 28%;
+    margin: 10px;
+    padding: 10px;
+    min-height: 83px;
+
     border: 1px solid #3a75c4;
-    color: 1px solid #3a75c4;
+    box-shadow: 5px;
+
   }
 </style>
 
@@ -20,11 +28,12 @@
   </p>
 
   <div id="bbcContainer">
-    <!-- <div class="row"> -->
-    <a v-for="bbc in bbcs" :href="bbc.link">
+    <!-- <div  class="row"> -->
+    <a v-for="bbc in bbcs" :href="bbc.link" :key="bbc.index">
       <div class="bbcItem" >
-          {{ bbc.title }} <br/>
-          {{bbc.city}},&nbsp;{{ bbc.state }}
+        {{bbc.index}} <br/>
+        {{ bbc.title }} <br/>
+        {{bbc.city}},&nbsp;{{ bbc.state }}
       </div>
     </a>
     <!-- </div> -->
@@ -55,47 +64,78 @@
       $.ajax({
         type: "GET",
         // url: 'vue.xml',
-        url: "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
+        url: "//www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
         dataType: "xml",
         success: function(data) {
+          console.log("DATA======================")
           console.log(data);
+          console.log(data.domain)
           var htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
           // console.log(htmlCollectionAllBbc_Item);
           htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+          console.log("htmlCollectionAllBbc_Item===================");
           console.log(htmlCollectionAllBbc_Item);
+          console.log("NUMBER=====================")
           console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
 
           var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities) {
             return cities.getElementsByTagName("city")[0].innerHTML;
           });
+          console.log("DIRTY VERSIONS OF ARRAYS=======1");
+          console.log(arrayOfCitiesAsStrings);
+
           var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links) {
             return links.getElementsByTagName("link")[0].innerHTML;
           });
+          console.log("DIRTY VERSIONS OF ARRAYS=======2");
+          console.log(arrayOfLinksAsStrings);
+
           var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states) {
             return states.getElementsByTagName("state")[0].innerHTML;
           });
+          console.log("DIRTY VERSIONS OF ARRAYS=======3");
+          console.log(arrayOfStatesAsStrings);
+
           var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles) {
             return titles.getElementsByTagName("title")[0].innerHTML;
           });
+          console.log("DIRTY VERSIONS OF ARRAYS=======4");
+          console.log(arrayOfTitlesAsStrings);
 
           var titlesClean = [];
           for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
-            var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var setIt = arrayOfTitlesAsStrings[i];
+            console.log("SETIT========================1");
+            console.log(setIt);
+            // var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var redoneTitle = setIt.replace("<![CDATA[", "").replace("]]>", "");
             titlesClean.push(redoneTitle);
           }
           var citiesClean = [];
           for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
-            var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var setIt = arrayOfCitiesAsStrings[i];
+            console.log("SETIT========================2");
+            console.log(setIt);
+            // var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var redoneCity = setIt.replace("<![CDATA[", "").replace("]]>", "");
             citiesClean.push(redoneCity);
           }
           var statesClean = [];
           for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
-            var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var setIt = arrayOfStatesAsStrings[i];
+            console.log("SETIT========================3");
+            console.log(setIt);
+            // var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var redoneState = setIt.replace("<![CDATA[", "").replace("]]>", "");
             statesClean.push(redoneState);
           }
           var linksClean = [];
           for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
-            var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var setIt = arrayOfLinksAsStrings[i];
+            console.log("SETIT========================4");
+            console.log(setIt);
+            // var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            var redoneLinks =setIt.replace("<![CDATA[", "").replace("]]>", "");
             linksClean.push(redoneLinks);
           }
 
@@ -106,6 +146,7 @@
             all[i].city = citiesClean[i];
             all[i].state = statesClean[i];
             all[i].link = linksClean[i];
+            all[i].index = i+1;
           }
           console.log("---------");
           console.log(all);
@@ -151,7 +192,7 @@
       bbcs: all
     },
     methods: {
-      changeEmoji: () => {
+      changeEmoji: function() {
         console.log(example);
       }
     }
