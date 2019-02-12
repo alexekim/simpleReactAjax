@@ -186,15 +186,18 @@
           throw err;
         }
       })
-      let check = () => {
+      let checkForMoreThanSix = () => {
         if (document.getElementsByClassName("more").length>0) {
+          //hide view more button if there are any items with className("more") which happens when there are more than 6 bbc events
           document.getElementById("viewMoreBBCDiv").classList.remove("hideIt");
         }
         else{
+          //hide view more button if there are any items with className("more") which happens when there are more than 6 bbc events
+
           document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
         }
       };
-      setTimeout(check, 350);
+      setTimeout(checkForMoreThanSix, 350);
     }
     render(){
       let eachMore = document.getElementsByClassName("more");
