@@ -1,3 +1,15 @@
+<script src="https://unpkg.com/vue@2.6.5/dist/vue.min.js"></script>
+
+<p>
+  bbc vue
+</p>
+<div id="app">
+  <p>
+    {{message}}
+  </p>
+</div>
+
+<script type="text/javascript">
 var all =
   [
     {
@@ -10,23 +22,24 @@ var all =
 
 
 var ajaxCall = function(){
-  // var currentState = Cookies.get("state");
+  var currentState = Cookies.get("state");
   $.ajax({
     type: "GET",
-    url: 'vue.xml',
-    // url: "https://www.lung.org/assets/reus/bbc-feed.xml?relatedState=" + currentState,
+    // url: 'vue.xml',
+    url: "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
     dataType: "xml",
     success: function(data){
       console.log(data);
       var htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+      // console.log(htmlCollectionAllBbc_Item);
       htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
       console.log(htmlCollectionAllBbc_Item);
       console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
 
-      var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities){ return cities.getElementsByTagName("city")[0].innerHTML });
-      var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links){ return links.getElementsByTagName("link")[0].innerHTML });
-      var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states){ return states.getElementsByTagName("state")[0].innerHTML });
-      var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles){ return titles.getElementsByTagName("title")[0].innerHTML });
+      var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities){ return cities.getElementsByTagName("city")[0].innerHTML; });
+      var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links){ return links.getElementsByTagName("link")[0].innerHTML; });
+      var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states){ return states.getElementsByTagName("state")[0].innerHTML; });
+      var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles){ return titles.getElementsByTagName("title")[0].innerHTML; });
 
       var titlesClean = [];
       for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
@@ -84,3 +97,5 @@ var app = new Vue({
     }
   }
 })
+
+</script>
