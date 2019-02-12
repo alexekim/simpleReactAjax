@@ -1,4 +1,15 @@
-<script src="https://unpkg.com/vue@2.6.5/dist/vue.min.js"></script>
+<style media="screen">
+  .bbcItem {
+    border: 1px solid #3a75c4;
+    color: 1px solid #3a75c4;
+  }
+</style>
+
+
+<!-- development -->
+<script src="https://unpkg.com/vue"></script>
+<!-- production -->
+<!-- <script src="https://unpkg.com/vue@2.6.5/dist/vue.min.js"></script> -->
 
 <p>
   bbc vue
@@ -7,95 +18,156 @@
   <p>
     {{message}}
   </p>
+
+  <div id="bbcContainer">
+    <!-- <div class="row"> -->
+    <a v-for="bbc in bbcs" :href="bbc.link">
+      <div class="bbcItem" >
+          {{ bbc.title }} <br/>
+          {{bbc.city}},&nbsp;{{ bbc.state }}
+      </div>
+    </a>
+    <!-- </div> -->
+
+  </div>
+
+
+
 </div>
 
 <script type="text/javascript">
-var all =
-  [
-    {
-      "title" : "Better whatever",
-      "link": "https://www.lung.org",
-      "city": "Chicago",
-      "state": "Illinois"
-    }
+  var all = [
+    // {
+    //   "title" : "Better whatever",
+    //   "link": "https://www.lung.org",
+    //   "city": "Chicago",
+    //   "state": "Illinois"
+    // }
   ]
 
 
-var ajaxCall = function(){
-  var currentState = Cookies.get("state");
-  $.ajax({
-    type: "GET",
-    // url: 'vue.xml',
-    url: "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
-    dataType: "xml",
-    success: function(data){
-      console.log(data);
-      var htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
-      // console.log(htmlCollectionAllBbc_Item);
-      htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
-      console.log(htmlCollectionAllBbc_Item);
-      console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
+  var ajaxCall = function() {
+    return new Promise(function(resolve, reject) {
+      app.message = "ajax working....!";
+      all = [];
+      app.bbcs = [];
+      var currentState = Cookies.get("state");
+      $.ajax({
+        type: "GET",
+        // url: 'vue.xml',
+        url: "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
+        dataType: "xml",
+        success: function(data) {
+          console.log(data);
+          var htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+          // console.log(htmlCollectionAllBbc_Item);
+          htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+          console.log(htmlCollectionAllBbc_Item);
+          console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
 
-      var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities){ return cities.getElementsByTagName("city")[0].innerHTML; });
-      var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links){ return links.getElementsByTagName("link")[0].innerHTML; });
-      var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states){ return states.getElementsByTagName("state")[0].innerHTML; });
-      var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles){ return titles.getElementsByTagName("title")[0].innerHTML; });
+          var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities) {
+            return cities.getElementsByTagName("city")[0].innerHTML;
+          });
+          var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links) {
+            return links.getElementsByTagName("link")[0].innerHTML;
+          });
+          var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states) {
+            return states.getElementsByTagName("state")[0].innerHTML;
+          });
+          var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles) {
+            return titles.getElementsByTagName("title")[0].innerHTML;
+          });
 
-      var titlesClean = [];
-      for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
-        var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
-        titlesClean.push(redoneTitle);
-      }
-      var citiesClean = [];
-      for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
-        var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
-        citiesClean.push(redoneCity);
-      }
-      var statesClean = [];
-      for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
-        var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
-        statesClean.push(redoneState);
-      }
-      var linksClean = [];
-      for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
-        var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[","").replace("]]>","");
-        linksClean.push(redoneLinks);
-      }
+          var titlesClean = [];
+          for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
+            var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            titlesClean.push(redoneTitle);
+          }
+          var citiesClean = [];
+          for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
+            var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            citiesClean.push(redoneCity);
+          }
+          var statesClean = [];
+          for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
+            var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            statesClean.push(redoneState);
+          }
+          var linksClean = [];
+          for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
+            var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
+            linksClean.push(redoneLinks);
+          }
 
-      if(titlesClean.length == citiesClean.length && citiesClean.length == statesClean.length && statesClean.length == linksClean.length){
-        var length = titlesClean.length;
-      }
-      // var master = []
-      // for (var i = 0; i < length; i++) {
-      //   master.push(titlesClean[i]);
-      //   master.push(citiesClean[i]);
-      //   master.push(statesClean[i]);
-      //   master.push(linksClean[i]);
-      // }
-      // console.log("master");
-      // console.log(master);
+          for (var i = 0; i < titlesClean.length; i++) {
+            all.push({
+              "title": titlesClean[i]
+            });
+            all[i].city = citiesClean[i];
+            all[i].state = statesClean[i];
+            all[i].link = linksClean[i];
+          }
+          console.log("---------");
+          console.log(all);
+          resolve("yep it's done?");
+
+        },
+        error: function(err) {
+          console.warn(err);
+          reject("didn't werk");
+        }
+      })
+    })
+
+  }
+
+  var handleResolve = function(resolve) {
+    console.log(resolve);
+    app.message = "ajax done";
+    app.bbcs = all;
+    console.log("app: ");
+    console.log(app);
+  }
+  var handleReject = function(reject) {
+    throw reject;
+  }
+
+  var runIt = function(){
+    ajaxCall()
+      .then(handleResolve)
+      .catch(handleReject)
+
+  }
+
+  $(document).ready(function() {
+    runIt();
+  })
 
 
-
+  var app = new Vue({
+    el: "#app",
+    data: {
+      message: "ajax working.....",
+      bbcs: all
     },
-    error: function(err){
-      console.warn(err);
+    methods: {
+      changeEmoji: () => {
+        console.log(example);
+      }
     }
   })
-}
-ajaxCall();
 
 
-var app = new Vue({
-  el: "#app",
-  data: {
-    message: "mensaje"
-  },
-  methods: {
-    changeEmoji: () => {
-      console.log(example);
-    }
-  }
-})
+  $("[name='searchZip']").on("submit", function() {
+    console.log("zip changed");
 
+    setTimeout(runIt, 500);
+    // $(".info").show();
+  })
+  $("#stateSelectList").on("change", function() {
+    console.log(" select changed");
+
+    runIt();
+    // $(".info").show();
+  })
 </script>
