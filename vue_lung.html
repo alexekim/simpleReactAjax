@@ -77,30 +77,67 @@
           console.log(htmlCollectionAllBbc_Item);
           console.log("NUMBER=====================")
           console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
+          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+            console.log("ITS HERE I KNOW LOOK AT THE LENGTH!!!!!!!");
+            console.log(htmlCollectionAllBbc_Item[i]);
+          }
 
-          var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities) {
-            return cities.getElementsByTagName("city")[0].innerHTML;
-          });
+          console.log("CAN WE FIND A city?");
+          // console.log($(htmlCollectionAllBbc_Item).find("city")[0].textContent); // avoiding jquery call
+          console.log(htmlCollectionAllBbc_Item[0].querySelector("city").textContent);  // works in all browsers
+          // console.log( htmlCollectionAllBbc_Item[0].querySelector("city").innerHTML  );  // didnt work in IE
+          console.log("CAN WE FIND A state?");
+          console.log(htmlCollectionAllBbc_Item[0].getElementsByTagName('state')[0].innerHTML)
+          console.log("CAN WE FIND A title?");
+          console.log(htmlCollectionAllBbc_Item[0].getElementsByTagName('title')[0].innerHTML)
+          console.log("CAN WE FIND A link?");
+          console.log(htmlCollectionAllBbc_Item[0].getElementsByTagName('link')[0].innerHTML)
+
+
+          // var arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map(function(cities) {
+          //   return cities.getElementsByTagName("city")[0].innerHTML;
+          // });
+          var arrayOfCitiesAsStrings = [];
+          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+            arrayOfCitiesAsStrings.push(htmlCollectionAllBbc_Item[i].querySelector("city").textContent);
+          }
           console.log("DIRTY VERSIONS OF ARRAYS=======1");
           console.log(arrayOfCitiesAsStrings);
 
-          var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links) {
-            return links.getElementsByTagName("link")[0].innerHTML;
-          });
+          // var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links) {
+          //   return links.getElementsByTagName("link")[0].innerHTML;
+          // });
+          var arrayOfLinksAsStrings = [];
+          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+            arrayOfLinksAsStrings.push(htmlCollectionAllBbc_Item[i].querySelector("link").textContent);
+          }
           console.log("DIRTY VERSIONS OF ARRAYS=======2");
           console.log(arrayOfLinksAsStrings);
 
-          var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states) {
-            return states.getElementsByTagName("state")[0].innerHTML;
-          });
+          // var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states) {
+          //   return states.getElementsByTagName("state")[0].innerHTML;
+          // });
+          var arrayOfStatesAsStrings = [];
+          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+            arrayOfStatesAsStrings.push(htmlCollectionAllBbc_Item[i].querySelector("state").textContent);
+          }
           console.log("DIRTY VERSIONS OF ARRAYS=======3");
           console.log(arrayOfStatesAsStrings);
 
-          var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles) {
-            return titles.getElementsByTagName("title")[0].innerHTML;
-          });
+          // var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles) {
+          //   return titles.getElementsByTagName("title")[0].innerHTML;
+          // });
+          var arrayOfTitlesAsStrings = [];
+          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+            arrayOfTitlesAsStrings.push(htmlCollectionAllBbc_Item[i].querySelector("title").textContent);
+          }
           console.log("DIRTY VERSIONS OF ARRAYS=======4");
           console.log(arrayOfTitlesAsStrings);
+
+
+
+
+
 
           var titlesClean = [];
           for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
