@@ -1,7 +1,13 @@
-<script
+<style media="screen">
+  .listP{
+    cursor: pointer;
+  }
+</style>
+
+<!-- <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
@@ -40,15 +46,14 @@
       })
     }
     render(){
-      console.log("render: this.state.cities");
+      console.log("render: this.state.words");
       console.log("render2");
       return (
         <div>
-          <p onClick={this.handleChange.bind(this)}>List of words</p>
+          <p className="listP" onClick={this.handleChange.bind(this)}>List of words (click to print array to console)</p>
           <ul>
               {this.state.words.map(word => {
                 <li>{word}</li>;
-                // $("#root").append("<p>" + word + "</p>");
                 console.log(word);
               }
               )}
@@ -56,6 +61,8 @@
         </div>);
     }
   }
+  // $("#root").append("<p>" + word + "</p>");
+
 
   ReactDOM.render(<Something />, document.getElementById("root"));
 </script>
