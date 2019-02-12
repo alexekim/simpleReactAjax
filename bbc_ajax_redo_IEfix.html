@@ -1,0 +1,236 @@
+<link rel="stylesheet" href="/css/materialize.css" media="screen" title="no title" charset="utf-8">
+
+<style media="screen">
+  .bbcContainer{
+    max-width: 1040px;
+    margin: 0 auto;
+    clear: both;
+  }
+
+  .eachBBCWrapper{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 33%;
+  }
+  .eachBBCLink:active{
+    color: #555559 !important;
+  }
+  .eachBBCLink:focus{
+    color: #555559 !important;
+    font-weight: bolder;
+  }
+
+  .eachBBC {
+    border: 1px solid #3a75c4;
+    margin: 10px;
+    padding: 10px;
+    /*width: 260px;*/
+    min-height: 115px;
+  }
+  .eachBBC:hover{
+    box-shadow: 3px 3px;
+  }
+  .eachBBC:active{
+    box-shadow: -3px -3px #3a75c4 !important;
+  }
+
+  .bbcText{
+    font-size: 16px !important;
+    line-height: 22px !important;
+  }
+
+  /*.more{
+    display: none;
+  }*/
+  .centering{
+    text-align: center;
+  }
+  .showIt{
+    display: inline-block;
+  }
+  .showItBtn{
+    display: block;
+  }
+  .hideIt{
+    display: none !important;
+  }
+  #viewMoreBBC{
+    background: #ed1b2d;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 700;
+    width: 166px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    text-decoration: none;
+    border-radius: 25px;
+    text-align: center;
+    border: none;
+    font-family: 'lato', sans-serif;
+    cursor: pointer;
+  }
+  #viewMoreBBC:hover{
+    background: #bad80a;
+  }
+
+
+  @media (max-width: 1000px){
+    .eachBBCWrapper{ width: 95%; }
+    .eachBBC{ width: 95%; }
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  class BbcContainer extends React.Component{
+    constructor(props){
+      super(props);
+    }
+    render(){
+      return (
+        <div className="bbcContainer">
+          <h2>Better Breathers Clubs</h2>
+          <BbcComponents />
+        </div>
+      )
+    }
+  }
+
+  class BbcComponents extends React.Component {
+    constructor(props) {
+      super(props);
+      let i = 0;
+      this.state = {
+        titles: [],
+        links: [],
+        cities: [],
+        usStates: []
+      };
+      this.handleClick = this.handleClick.bind(this);
+      this.componentDidMount = this.componentDidMount.bind(this);
+      const self = this;
+      $("#stateSelectList").on("change", function() {
+        self.componentDidMount();
+      });
+      $("[name='searchZip']").on("submit", function(){
+        setTimeout(self.componentDidMount, 300);
+      });
+    }
+    handleClick(){
+      // console.log("log");
+      let eachMore = document.getElementsByClassName("more");
+      for (var i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.remove("hideIt");
+        eachMore[i].classList.add("showIt");
+      }
+      document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
+    }
+    componentDidMount(){
+      let currentState = Cookies.get("state");
+      $.ajax({
+        type: "GET",
+        url: '//www.lung.org/assets/reus/bbc-feed.xml?related_state=' + currentState,
+        dataType: "xml",
+        success: data => {
+          // console.log(data);
+          if (data.getElementsByTagName("bbc_item").length <1) {
+            this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: [""], cities: [""], usStates: [""]})
+          }
+          else {
+            let htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
+            console.log(htmlCollectionAllBbc_Item);
+            htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
+            console.log(htmlCollectionAllBbc_Item);
+            // console.log(htmlCollectionAllBbc_Item);
+            // htmlCollectionAllBbc_Item is now an array, not an htmlcollection
+            let arrayOfCitiesAsStrings = htmlCollectionAllBbc_Item.map( (cities) => cities.querySelector("city").textContent );
+            let arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map ((links) => links.querySelector("link").textContent );
+            let arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map( (states) => states.querySelector("state").textContent );
+            let arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map( (titles) => titles.querySelector("title").textContent );
+
+            //NOT NECESSARY WITH .textContent. using .innerHTML caused the CDATA to come with
+            // let titlesClean = [];
+            // for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
+            //   var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+            //   titlesClean.push(redoneTitle);
+            // }
+            // let citiesClean = [];
+            // for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
+            //   var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+            //   citiesClean.push(redoneCity);
+            // }
+            // let statesClean = [];
+            // for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
+            //   var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+            //   statesClean.push(redoneState);
+            // }
+            // let linksClean = [];
+            // for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
+            //   var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[","").replace("]]>","");
+            //   linksClean.push(redoneLinks);
+            // }
+            // this.setState({titles: titlesClean, links: linksClean, cities: citiesClean, usStates: statesClean});
+            this.setState({titles: arrayOfTitlesAsStrings, links: arrayOfLinksAsStrings, cities: arrayOfCitiesAsStrings, usStates: arrayOfStatesAsStrings});
+          }
+
+          return data;
+        },
+        error: (err) => {
+          throw err;
+        }
+      })
+      let check = () => {
+        if (document.getElementsByClassName("more").length>0) {
+          document.getElementById("viewMoreBBCDiv").classList.remove("hideIt");
+        }
+        else{
+          document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
+        }
+      };
+      setTimeout(check, 350);
+    }
+    render(){
+      let eachMore = document.getElementsByClassName("more");
+      for (var i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.add("hideIt");
+        eachMore[i].classList.remove("showIt");
+      }
+      const bothArrays = this.state.titles.map( (title, index) =>
+         (
+           <div id={"bbc"+index} className={index>5 ? "eachBBCWrapper more hideIt"  : "eachBBCWrapper"} key={index}>
+             <a target="_blank" className="eachBBCLink" href={this.state.links[index]}>
+              <div className="eachBBC" >
+                <p className="bbcText">
+                  <strong>{title}</strong>
+                  <br/>
+                  {this.state.cities[index] + ", " + this.state.usStates[index]}
+                </p>
+              </div>
+            </a>
+          </div>
+        )
+      );
+      return (
+        <div className="bbcContainer">
+          {bothArrays}
+          <div id="viewMoreBBCDiv" className="centering showItBtn">
+            <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
+          </div>
+        </div>
+      );
+    }
+  }
+  setTimeout( ()=> {
+      ReactDOM.render(<BbcContainer />,
+         document.getElementById("root")
+       );
+  }, 2000);
+
+</script>
