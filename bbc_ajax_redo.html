@@ -136,7 +136,7 @@
       let currentState = Cookies.get("state");
       $.ajax({
         type: "GET",
-        url: '//www.lung.org/dev/reading-position-indicator/bbc-feed.xml?related_state=' + currentState,
+        url: '//www.lung.org/assets/reus/bbc-feed.xml?related_state=' + currentState,
         dataType: "xml",
         success: data => {
           // console.log(data);
