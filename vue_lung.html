@@ -9,7 +9,6 @@
 
     border: 1px solid #3a75c4;
     box-shadow: 5px;
-
   }
 </style>
 
@@ -58,8 +57,8 @@
   var ajaxCall = function() {
     return new Promise(function(resolve, reject) {
       app.message = "ajax working....!";
-      all = [];
-      app.bbcs = [];
+      all = [];  // clears out global variable
+      app.bbcs = []; // clears out vue object
       var currentState = Cookies.get("state");
       $.ajax({
         type: "GET",
@@ -67,24 +66,24 @@
         url: "//www.lung.org/assets/reus/bbc-feed.xml?related_state=" + currentState,
         dataType: "xml",
         success: function(data) {
-          console.log("DATA======================");
-          console.log(data);
-          console.log(data.domain)
+          // console.log("DATA======================");
+          // console.log(data);
+          // console.log(data.domain)
           var htmlCollectionAllBbc_Item = data.getElementsByTagName("bbc_item");
           // console.log(htmlCollectionAllBbc_Item);
           htmlCollectionAllBbc_Item = [].slice.call(htmlCollectionAllBbc_Item);
-          console.log("htmlCollectionAllBbc_Item===================");
-          console.log(htmlCollectionAllBbc_Item);
-          console.log("NUMBER=====================")
-          console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
-          for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
-            console.log("ITS HERE I KNOW LOOK AT THE LENGTH!!!!!!!");
-            console.log(htmlCollectionAllBbc_Item[i]);
-          }
+          // console.log("htmlCollectionAllBbc_Item===================");
+          // console.log(htmlCollectionAllBbc_Item);
+          // console.log("NUMBER=====================")
+          // console.log("htmlCollectionAllBbc_Item has " + htmlCollectionAllBbc_Item.length + " items");
+          // for (var i = 0; i < htmlCollectionAllBbc_Item.length; i++) {
+          //   console.log("ITS HERE I KNOW LOOK AT THE LENGTH!!!!!!!");
+          //   console.log(htmlCollectionAllBbc_Item[i]);
+          // }
 
-          console.log("CAN WE FIND A city?");
+          // console.log("CAN WE FIND A city?");
           // console.log($(htmlCollectionAllBbc_Item).find("city")[0].textContent); // avoiding jquery call
-          console.log(htmlCollectionAllBbc_Item[0].querySelector("city").textContent);  // works in all browsers
+          // console.log(htmlCollectionAllBbc_Item[0].querySelector("city").textContent);  // works in all browsers
           // console.log( htmlCollectionAllBbc_Item[0].querySelector("city").innerHTML  );  // didnt work in IE
           // console.log(htmlCollectionAllBbc_Item[0].getElementsByTagName('city')[0].innerHTML) // didn't work in IE
 
@@ -93,29 +92,21 @@
             return cities.querySelector("city").textContent;
             // return links.getElementsByTagName("link")[0].innerHTML;
           });
-          console.log("DIRTY VERSIONS OF ARRAYS=======1");
-          console.log(arrayOfCitiesAsStrings);
 
           var arrayOfLinksAsStrings = htmlCollectionAllBbc_Item.map(function(links) {
             return links.querySelector("link").textContent;
             // return links.getElementsByTagName("link")[0].innerHTML;
           });
-          console.log("DIRTY VERSIONS OF ARRAYS=======2");
-          console.log(arrayOfLinksAsStrings);
-
+          //
           var arrayOfStatesAsStrings = htmlCollectionAllBbc_Item.map(function(states) {
             return states.querySelector("state").textContent;
             // return links.getElementsByTagName("link")[0].innerHTML;
           });
-          console.log("DIRTY VERSIONS OF ARRAYS=======3");
-          console.log(arrayOfStatesAsStrings);
 
           var arrayOfTitlesAsStrings = htmlCollectionAllBbc_Item.map(function(titles) {
             return titles.querySelector("title").textContent;
             // return links.getElementsByTagName("link")[0].innerHTML;
           });
-          console.log("DIRTY VERSIONS OF ARRAYS=======4");
-          console.log(arrayOfTitlesAsStrings);
 
           for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
             all.push({
@@ -127,56 +118,7 @@
             all[i].index = i+1;
           }
 
-          // var titlesClean = [];
-          // for (var i = 0; i < arrayOfTitlesAsStrings.length; i++) {
-          //   var setIt = arrayOfTitlesAsStrings[i];
-          //   console.log("SETIT========================1");
-          //   console.log(setIt);
-          //   // var redoneTitle = arrayOfTitlesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
-          //   var redoneTitle = setIt.replace("<![CDATA[", "").replace("]]>", "");
-          //   titlesClean.push(redoneTitle);
-          // }
-          // var citiesClean = [];
-          // for (var i = 0; i < arrayOfCitiesAsStrings.length; i++) {
-          //   var setIt = arrayOfCitiesAsStrings[i];
-          //   console.log("SETIT========================2");
-          //   console.log(setIt);
-          //   // var redoneCity = arrayOfCitiesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
-          //   var redoneCity = setIt.replace("<![CDATA[", "").replace("]]>", "");
-          //   citiesClean.push(redoneCity);
-          // }
-          // var statesClean = [];
-          // for (var i = 0; i < arrayOfStatesAsStrings.length; i++) {
-          //   var setIt = arrayOfStatesAsStrings[i];
-          //   console.log("SETIT========================3");
-          //   console.log(setIt);
-          //   // var redoneState = arrayOfStatesAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
-          //   var redoneState = setIt.replace("<![CDATA[", "").replace("]]>", "");
-          //   statesClean.push(redoneState);
-          // }
-          // var linksClean = [];
-          // for (var i = 0; i < arrayOfLinksAsStrings.length; i++) {
-          //   var setIt = arrayOfLinksAsStrings[i];
-          //   console.log("SETIT========================4");
-          //   console.log(setIt);
-          //   // var redoneLinks = arrayOfLinksAsStrings[i].replace("<![CDATA[", "").replace("]]>", "");
-          //   var redoneLinks =setIt.replace("<![CDATA[", "").replace("]]>", "");
-          //   linksClean.push(redoneLinks);
-          // }
-
-          // for (var i = 0; i < titlesClean.length; i++) {
-          //   all.push({
-          //     "title": titlesClean[i]
-          //   });
-          //   all[i].city = citiesClean[i];
-          //   all[i].state = statesClean[i];
-          //   all[i].link = linksClean[i];
-          //   all[i].index = i+1;
-          // }
-          console.log("---------");
-          console.log(all);
           resolve("yep it's done?");
-
         },
         error: function(err) {
           console.warn(err);
