@@ -201,7 +201,7 @@
       );
       return (
         <div className="bbcContainer">
-          {bothArrays}
+          {bothArrays.length > 1 ? bothArrays : "No Better Breathers Clubs at this time in this state."}
           <div id="viewMoreBBCDiv" className="centering showItBtn">
             <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
           </div>
