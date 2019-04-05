@@ -1,0 +1,49 @@
+<div id="app">
+
+</div>
+
+
+<script type="text/javascript">
+  const request = new XMLHttpRequest();
+  request.open("get", "https://www.lung.org/assets/reus/bbc-feed.xml?related_state=IL",true);
+  // request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+  // request.send(data);
+
+  request.onload = ()=>{
+    if(request.status >= 200 && request.status < 400){
+      //success
+      console.log("success");
+      console.log(request);
+      const data = request.responseText;
+
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(data, "text/xml"); // giant bbc xml object
+      const eachBbcItemHTMLCollection = xml.getElementsByTagName("bbc_item");
+      const eachBbcItem = [].slice.call(eachBbcItemHTMLCollection);
+
+      const titles = eachBbcItem.map( (titles) => titles.querySelector("title").textContent );
+      const cities = eachBbcItem.map( (cities) => cities.querySelector("city").textContent );
+      const states = eachBbcItem.map( (states) => states.querySelector("state").textContent );
+      const links = eachBbcItem.map ((links) => links.querySelector("link").textContent );
+
+      if( titles.length !)
+      for (var i = 0; i < cities.length; i++) {
+        let child = "<p><a href='"+ links[i] +"'>" + titles[i]+ ": " + cities[i] + ", " + states[i] + "</a></p>";
+        document.getElementById("app").innerHTML += child;
+      }
+
+
+
+    } else {
+      throw "error1";
+    }
+  }
+
+  request.onerror = function(err){
+    console.warn("error2");
+    throw err;
+  }
+
+  request.send();
+
+</script>
