@@ -1,0 +1,269 @@
+<link rel="stylesheet" href="/css/materialize.css" media="screen" title="no title" charset="utf-8">
+
+
+<style media="screen">
+  .bbcContainer{
+    max-width: 1040px;
+    margin: 0 auto;
+    clear: both;
+  }
+
+.bbcContainer h2 {padding-top: 60px; padding-bottom: 20px !important;}
+
+  .eachBBCWrapper{
+    display: inline-block;
+    vertical-align: bottom;
+    /*width: 33%;*/
+    width: 30.576923%;
+    margin-right: 3.846154%;
+    margin-bottom: 3.846154%;
+  }
+  .eachBBCWrapper:nth-child(3n) {
+    margin-right: 0;
+}
+
+.eachBBCWrapper:hover a {text-decoration: none !important;}
+
+  .eachBBCLink:active{
+   /* color: #555559 !important;*/
+  }
+  .eachBBCLink:focus{
+  /*  color: #555559 !important;
+    font-weight: bolder;*/
+  }
+
+  .eachBBC {
+    border: 1px solid #3a75c4;
+    /*margin: 10px;*/
+    padding: 18px 10px;
+    /*width: 260px;*/
+    /*min-height: 115px; */
+  }
+  .eachBBC:hover{
+    box-shadow: 3px 3px;
+  }
+.eachBBC:hover p {text-decoration: none !important;}
+
+  .eachBBC:active{
+    /*box-shadow: -3px -3px #3a75c4 !important;*/
+  }
+
+  .bbcText{
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
+
+  /*.more{
+    display: none;
+  }*/
+  .centering{
+    text-align: center;
+  }
+  .showIt{
+    display: inline-block;
+  }
+  .showItBtn{
+    display: block;
+  }
+  .hideIt{
+    display: none !important;
+  }
+  #viewMoreBBC{
+    background: #ed1b2d;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    font-weight: 700;
+    width: 166px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+    text-decoration: none;
+    border-radius: 25px;
+    text-align: center;
+    border: none;
+    font-family: 'lato', sans-serif;
+    cursor: pointer;
+  }
+  #viewMoreBBC:hover{
+    background: #bad80a;
+  }
+
+@media all and (max-width: 1090px){
+  .eachBBCWrapper{
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 30px;
+    float: none;
+    font-size: 24px;
+  }
+
+  .eachBBC {
+    padding: 18px 32px;
+}
+
+  .bbcText{
+    font-size: 24px !important;
+    line-height: 30px !important;
+  }
+}
+
+
+  @media (max-width: 1000px){
+    /*.eachBBCWrapper{ width: 95%; }*/
+    /*.eachBBC{ width: 95%; }*/
+  }
+
+@media all and (max-width: 767px){
+	.eachBBCWrapper {
+		margin-bottom: 20px;
+		font-size: 14px;
+	}
+  .bbcText{
+    font-size: 14px !important;
+    line-height: 17px !important;
+  }
+  .eachBBC {
+    padding: 14px 12px;
+}
+}
+</style>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+  class BbcContainer extends React.Component{
+    constructor(props){
+      super(props);
+    }
+    render(){
+      return (
+        <div className="bbcContainer">
+          <h2>Better Breathers Clubs</h2>
+          <BbcComponents />
+        </div>
+      )
+    }
+  }
+
+  class BbcComponents extends React.Component {
+    constructor(props) {
+      super(props);
+      let i = 0;
+      this.state = {
+        titles: [],
+        links: [],
+        cities: [],
+        usStates: []
+      };
+      this.handleClick = this.handleClick.bind(this);
+      this.componentDidMount = this.componentDidMount.bind(this);
+      const self = this;
+      $("#stateSelectList").on("change", function() {
+        self.componentDidMount();
+      });
+      $("[name='searchZip']").on("submit", function(){
+        setTimeout(self.componentDidMount, 300);
+      });
+    }
+    handleClick(){
+      // console.log("log");
+      let eachMore = document.getElementsByClassName("more");
+      for (var i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.remove("hideIt");
+        eachMore[i].classList.add("showIt");
+      }
+      document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
+    }
+    componentDidMount(){
+      let currentState = Cookies.get("state");
+      axios({
+        method: "GET",
+        url: '//www.lung.org/assets/reus/bbc-feed.xml?related_state=' + currentState,
+        type: "document",
+      }).then( (response) => {
+          console.log(response);
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(response.data, "text/xml"); // giant bbc xml object
+          let eachBbcItem = xml.getElementsByTagName("bbc_item");
+          eachBbcItem = [].slice.call(eachBbcItem);
+          console.warn("eachBbcItem", eachBbcItem);
+          console.warn("eachBbcItem.length", eachBbcItem.length);
+          if (eachBbcItem.length == 0) {
+            console.log(1);
+            this.setState({titles: ["No Better Breathers Clubs at this time in this state."], links: [""], cities: [""], usStates: [""]})
+          } else {
+            console.log(2);
+            // DO NOT USE INNERHTML. USE .textContent because it doesn't bring in CDATA syntax
+            let arrayOfCitiesAsStrings = eachBbcItem.map( (cities) => cities.querySelector("city").textContent );
+            let arrayOfLinksAsStrings = eachBbcItem.map ((links) => links.querySelector("link").textContent );
+            let arrayOfStatesAsStrings = eachBbcItem.map( (states) => states.querySelector("state").textContent );
+            let arrayOfTitlesAsStrings = eachBbcItem.map( (titles) => titles.querySelector("title").textContent );
+            this.setState({titles: arrayOfTitlesAsStrings, links: arrayOfLinksAsStrings, cities: arrayOfCitiesAsStrings, usStates: arrayOfStatesAsStrings});
+          }
+
+          //return? resolve????????
+          checkForMoreThanSix(); // no more setTimeout! promises!!!
+        })
+        .catch( (err) => {
+          throw (err);
+        })
+      let checkForMoreThanSix = () => {
+        if (document.getElementsByClassName("more").length>0) {
+          //hide view more button if there are any items with className("more") which happens when there are more than 6 bbc events
+          document.getElementById("viewMoreBBCDiv").classList.remove("hideIt");
+        }
+        else{
+          //hide view more button if there are any items with className("more") which happens when there are more than 6 bbc events
+          document.getElementById("viewMoreBBCDiv").classList.add("hideIt");
+        }
+      };
+      // setTimeout(checkForMoreThanSix, 350);
+    }  //END COMPONENT DID MOUNT
+    render(){
+      let eachMore = document.getElementsByClassName("more");
+      console.warn("eachMore", eachMore)
+      for (let i = 0; i < eachMore.length; i++) {
+        eachMore[i].classList.add("hideIt");
+        eachMore[i].classList.remove("showIt");
+      }
+      const bothArrays = this.state.titles.map( (title, index) =>
+         (
+           <div id={"bbc"+index} className={index>5 ? "eachBBCWrapper more hideIt"  : "eachBBCWrapper"} key={index}>
+             <a target="_blank" className="eachBBCLink" href={this.state.links[index]}>
+              <div className="eachBBC" >
+                <p className="bbcText">
+                  <strong>{title}</strong>
+                  <br/>
+                  {this.state.cities[index] + ", " + this.state.usStates[index]}
+                </p>
+              </div>
+            </a>
+          </div>
+        )
+      );
+      console.warn(bothArrays);
+      console.warn(bothArrays.length);
+      console.warn("bothArrays.length > 0 ", bothArrays.length>0);
+      return (
+        <div className="bbcContainer">
+          {bothArrays.length > 0 ? bothArrays : "No Better Breathers Clubs at this time in this state."}
+          <div id="viewMoreBBCDiv" className="centering showItBtn">
+            <button onClick={this.handleClick} id="viewMoreBBC" className="button red">View More</button>
+          </div>
+        </div>
+      );
+    }
+  }
+  setTimeout( ()=> {
+      ReactDOM.render(<BbcContainer />,
+         document.getElementById("root")
+       );
+  }, 2000);
+
+</script>
